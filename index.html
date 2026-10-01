@@ -23,9 +23,8 @@
   --fs-body: 14px;      /* body text size */
   --fs-code: 13px;      /* code blocks and signatures */
   --fs-small: 11px;     /* status bar, chips, headings, soft keys */
-  --fs-mark: clamp(13px, 3.6vw, 20px);  /* size of the pixel wordmark */
+  --px-mark: clamp(6px, 2vw, 11px);  /* size of one pixel of the wordmark */
   --lh-body: 1.6;       /* body line height */
-  --lh-mark: 1.05;      /* wordmark line height */
   --gutter: clamp(16px, 4vw, 56px);     /* side margins */
   --pad-inv: 0 7px;     /* padding of an inverted box */
   --pad-cond: 0 3px;    /* padding of a trig-condition box */
@@ -73,7 +72,7 @@ a:hover { background: var(--strong); color: var(--bg); text-decoration: none; }
 /* ---- title ---- */
 header.top { margin: 40px 0 0; }
 h1 { margin: 0; font: inherit; }
-h1 pre { margin: 0; font: 400 var(--fs-mark)/var(--lh-mark) var(--font); color: var(--strong); letter-spacing: 0; overflow: visible; }
+h1 .mark { display: block; height: calc(var(--px-mark) * 10); width: auto; color: var(--strong); }
 .tag { margin: 14px 0 18px; color: var(--muted); font-size: var(--fs-body); }
 .steps { display: flex; gap: var(--step-gap); padding: 3px; flex-wrap: wrap; }
 .steps i { display: block; width: var(--step); height: var(--step); border: 1px solid var(--faint); }
@@ -151,11 +150,7 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
 <div class="wrap">
 <div class="bar"><span class="cell first">OTYPE</span><span class="cell">v1 draft</span><span class="cell">130 ops</span><span class="cell end">OT1</span><button id="theme" class="cell" type="button">dark</button></div>
 <header class="top">
-  <h1 aria-label="otype"><pre aria-hidden="true">       █
-▄▀▀▀▄ ▀█▀▀  █   █ █▀▀▀▄ ▄▀▀▀▄
-█   █  █    █   █ █   █ █▀▀▀▀
-▀▄▄▄▀  ▀▄▄▀ ▀▄▄▄█ █▄▄▄▀ ▀▄▄▄▀
-             ▄▄▄▀ █</pre></h1>
+  <h1 aria-label="otype"><svg class="mark" viewBox="0 0 29 10" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="7" y="0" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="6" y="2" width="4" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="4" height="1"/><rect x="25" y="2" width="3" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="5" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="28" y="6" width="1" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="8" y="7" width="2" height="1"/><rect x="13" y="7" width="4" height="1"/><rect x="18" y="7" width="4" height="1"/><rect x="25" y="7" width="3" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="18" y="9" width="1" height="1"/></svg></h1>
   <p class="tag">a scripting language for ot1 · ot cfw</p>
   <div class="steps" aria-hidden="true"><i class="f on"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
 </header>
