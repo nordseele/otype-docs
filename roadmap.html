@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OType Roadmap</title>
+<meta name="description" content="Where OType, the scripting language of ot1, stands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+<style>/* OType command reference — monochrome "OT screen" look. Inlined into the page by tools/cheatsheet.py.
+   Retune the look by editing ONLY the token blocks below (light, dark x2: the dark values appear twice,
+   once for "system is dark" and once for the toggle — keep the two identical). */
+:root {
+  --bg: #f4f4f2;        /* page background (and text inside inverted boxes) */
+  --text: #1a1a1a;      /* body text */
+  --strong: #000000;    /* strong ink: headings, keywords, numbers, inverted-box fill */
+  --muted: #6b6b6b;     /* secondary text: docs, strings, aliases */
+  --faint: #b0b0b0;     /* comments, step borders, heading and table rules */
+  --rule: #d0d0cc;      /* frames, separators between commands */
+  --font: "IBM Plex Mono", ui-monospace, Menlo, monospace;  /* the one font everywhere */
+  --fs-body: 14px;      /* body text size */
+  --fs-code: 13px;      /* code blocks and signatures */
+  --fs-small: 11px;     /* status bar, chips, headings, soft keys */
+  --px-mark: clamp(6px, 2vw, 11px);  /* size of one pixel of the wordmark */
+  --lh-body: 1.6;       /* body line height */
+  --gutter: clamp(16px, 4vw, 56px);     /* side margins */
+  --pad-inv: 0 7px;     /* padding of an inverted box */
+  --pad-cond: 0 3px;    /* padding of a trig-condition box */
+  --track: 0.06em;      /* letter-spacing of inverted boxes */
+  --step: 9px;          /* size of one sequencer step */
+  --step-gap: 5px;      /* space between steps */
+  --tempo: 0.5s;        /* playhead: time per step (see the JS, 500 ms) */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0d0d; --text: #cfcfcf; --strong: #ffffff; --muted: #8c8c8c; --faint: #4d4d4d; --rule: #3a3a3a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0d0d; --text: #cfcfcf; --strong: #ffffff; --muted: #8c8c8c; --faint: #4d4d4d; --rule: #3a3a3a;
+  color-scheme: dark;
+}
+
+/* ---- base ---- */
+* { box-sizing: border-box; border-radius: 0; box-shadow: none; text-shadow: none; }
+html, body { background: var(--bg); }
+body { margin: 0; color: var(--text); font: 300 var(--fs-body)/var(--lh-body) var(--font); -webkit-text-size-adjust: 100%; }
+::selection { background: var(--strong); color: var(--bg); }
+code, pre, input, button { font-family: var(--font); }
+code { font-weight: 300; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { background: var(--strong); color: var(--bg); text-decoration: none; }
+:focus-visible { outline: 1px solid var(--strong); outline-offset: 2px; }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--gutter); padding-block: 24px 72px; }
+
+/* inverted box: the signature */
+.inv, h2 .hb { background: var(--strong); color: var(--bg); font-weight: 600; padding: var(--pad-inv); letter-spacing: var(--track); }
+
+/* ---- status bar ---- */
+.bar { display: flex; flex-wrap: wrap; border: 1px solid var(--rule); font-size: var(--fs-small); letter-spacing: var(--track); line-height: 1; }
+.bar .cell { padding: 6px 10px; border-right: 1px solid var(--rule); white-space: nowrap; }
+.bar .cell:last-child { border-right: 0; }
+.bar .cell.first { background: var(--strong); color: var(--bg); font-weight: 600; border-right-color: var(--strong); }
+.bar .end { margin-left: auto; border-left: 1px solid var(--rule); }
+#theme { background: none; color: var(--text); border: 0; border-left: 1px solid var(--rule); font: 300 var(--fs-small)/1 var(--font);
+  letter-spacing: var(--track); padding: 6px 10px; cursor: pointer; }
+#theme:hover { background: var(--strong); color: var(--bg); }
+
+/* ---- title ---- */
+header.top { margin: 40px 0 0; }
+h1 { margin: 0; font: inherit; }
+h1 .mark { display: block; height: calc(var(--px-mark) * 10); width: auto; color: var(--strong); }
+.tag { margin: 14px 0 18px; color: var(--muted); font-size: var(--fs-body); }
+.steps { display: flex; gap: var(--step-gap); padding: 3px; flex-wrap: wrap; }
+.steps i { display: block; width: var(--step); height: var(--step); border: 1px solid var(--faint); }
+.steps i.f { background: var(--muted); border-color: var(--muted); }
+.steps i.on { outline: 1px solid var(--strong); outline-offset: 2px; }
+
+/* ---- tools: filter and soft-key navigation ---- */
+.tools { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-start; margin: 32px 0 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+#q { font: 300 var(--fs-body) var(--font); padding: 5px 10px; border: 1px solid var(--rule); background: transparent; color: var(--text);
+  width: min(320px, 100%); -webkit-appearance: none; appearance: none; }
+#q::placeholder { color: var(--faint); }
+#q:focus { border-color: var(--strong); outline: 0; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 320px; font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; }
+nav.jump a { display: block; padding: 4px 9px; border: 1px solid var(--rule); text-decoration: none; line-height: 1.3; }
+nav.jump a:hover, nav.jump a[aria-current] { background: var(--strong); color: var(--bg); border-color: var(--strong); font-weight: 600; }
+
+/* ---- headings ---- */
+h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: var(--fs-small); line-height: 1.5; text-transform: uppercase; font-weight: 600; }
+h2::after { content: ""; flex: 1; height: 1px; background: var(--faint); }
+h3 { margin: 22px 0 8px; font-size: var(--fs-small); font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* ---- intro ---- */
+.intro { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 40px 64px; margin: 44px 0 0; }
+.intro > * { min-width: 0; }
+.howto p { margin: 0 0 14px; max-width: 64ch; }
+.howto pre { margin: 14px 0 18px; }
+.letters { border-bottom: 1px solid var(--faint); }
+.letters div { display: grid; grid-template-columns: 5.5em 1fr; gap: 12px; padding: 5px 0; border-top: 1px solid var(--faint); }
+.letters code { font-weight: 600; color: var(--strong); }
+.letters span { color: var(--muted); }
+
+/* ---- examples ---- */
+.examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 40px 56px; margin: 56px 0 64px; }
+.ex { margin: 0; min-width: 0; padding-top: 12px; border-top: 1px solid var(--faint); }
+.ex figcaption { font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+pre { margin: 0; overflow-x: auto; font: 300 var(--fs-code)/1.7 var(--font); color: var(--text); }
+
+/* ---- reference sheet ---- */
+.sheet { column-width: 22rem; column-gap: 56px; }
+.cat { break-inside: avoid-column; margin-bottom: 44px; }
+.cat.big { break-inside: auto; }
+.op { break-inside: avoid; padding: 8px 0 9px; border-top: 1px solid var(--rule); }
+h2 + .op, h3 + .op { border-top: 0; padding-top: 0; }
+.sig { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.sig code { font: 300 var(--fs-code) var(--font); color: var(--text); overflow-wrap: anywhere; }
+.sig code b { font-weight: 600; color: var(--strong); }
+.todo { font-size: 0.8em; font-weight: 400; color: var(--faint); margin-left: 5px; cursor: help; }
+.alias { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.doc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 3px; }
+.chip { display: inline-block; font: 400 10px/1.4 var(--font); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+  border: 1px solid var(--faint); padding: 0 5px; margin-left: 4px; }
+.chip.warn { background: var(--strong); color: var(--bg); border-color: var(--strong); font-weight: 600; }
+.op.hit { outline: 1px solid var(--strong); outline-offset: 5px; }
+.empty { color: var(--muted); font-style: italic; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12px; }
+footer p { max-width: 80ch; margin: 0 0 8px; }
+footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- syntax, without hue ---- */
+.c-kw { color: var(--strong); font-weight: 600; }                       /* keywords: def menu l if prob each trk steps … */
+.c-api { }                                                              /* API ops: normal text */
+.c-user { text-decoration: underline dotted 1px; text-underline-offset: 3px; }  /* user names: dotted underline */
+.c-str { font-style: italic; font-weight: 400; color: var(--muted); }   /* strings */
+.c-num { color: var(--strong); }                                        /* numbers */
+.c-com { color: var(--faint); }                                         /* comments */
+.c-var { }                                                              /* variables: normal text */
+.c-cond { background: var(--strong); color: var(--bg); font-weight: 600; padding: var(--pad-cond); }  /* trig conditions */
+.c-op { color: var(--muted); }                                          /* | and >> */
+
+@media (max-width: 520px) {
+  .bar .cell { padding: 6px 8px; }
+  .wrap { padding-block: 16px 56px; }
+}
+
+/* octalab page: added on top of cheatsheet.css (same tokens, same status bar, wordmark and
+   playhead). Layout: one column; each feature = text beside its photos on wide screens. */
+body { margin: 0; }
+.wrap { max-width: 1180px; }
+p { margin: 0 0 14px; }
+a { color: var(--strong); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { background: var(--strong); color: var(--bg); text-decoration: none; }
+b { font-weight: 600; color: var(--strong); }
+code { font: 400 var(--fs-code) var(--font); color: var(--strong); }
+.txt { min-width: 0; max-width: 68ch; }
+ul { margin: 0 0 14px; padding: 0; list-style: none; }
+ul li { position: relative; padding-left: 20px; margin: 0 0 8px; }
+ul li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; background: var(--strong); }
+
+/* hero: the story beside the menu photo */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 32px 56px; margin: 44px 0 0; align-items: start; }
+.hero .txt p:first-child { font-size: 16px; color: var(--strong); }
+
+/* photos: the unit's screen, in a thin frame */
+.shots { margin: 0; display: grid; gap: 12px; }
+.shots img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: var(--rule); }
+.shots.many { grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); }
+.shots figcaption { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.pics { display: grid; gap: 18px; min-width: 0; }
+
+/* soft keys: section jump */
+nav.jump { margin: 48px 0 0; padding: 18px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+/* sections and features */
+main section { margin: 56px 0 0; }
+.lead { max-width: none; }
+.lead > p, .lead > ul { max-width: 68ch; }
+.lead:empty { display: none; }
+.feature { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px 56px; padding: 26px 0 8px; border-top: 1px solid var(--faint); }
+.feature:first-of-type { border-top: 0; padding-top: 4px; }
+.feature.has-photos { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+.feature h3 { margin: 0 0 12px; font-size: 15px; font-weight: 600; letter-spacing: 0.04em; text-transform: none; color: var(--strong); }
+.feature h4 { margin: 20px 0 8px; font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--strong); }
+
+/* where octalab stands: one step per period */
+.timeline { list-style: none; margin: 8px 0 28px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); border: solid var(--rule); border-width: 1px 0 0 1px; }
+.timeline li { display: grid; grid-template-rows: auto auto 1fr; gap: 8px; padding: 14px 14px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0; }
+.timeline li::before { content: none; }
+.timeline .led { width: 11px; height: 11px; background: var(--muted); border: 1px solid var(--muted); }
+.timeline .now .led { background: var(--strong); border-color: var(--strong); outline: 1px solid var(--strong); outline-offset: 2px; }
+.timeline .when { font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); }
+.timeline .what { font-size: 13px; line-height: 1.5; }
+.timeline .now { background: color-mix(in srgb, var(--strong) 5%, transparent); }
+
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+
+footer i { font-style: normal; }
+
+@media (max-width: 820px) {
+  .hero, .feature.has-photos { grid-template-columns: minmax(0, 1fr); }
+  .hero .pics { max-width: 420px; }
+}
+
+/* the wordmark is wider than OType's: let it shrink on a phone */
+header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto; }
+
+
+/* CAPTURE's wave: the recorder's display, same pixel as the wordmark */
+.wave { display: block; width: min(100%, 336px); height: auto; color: var(--strong); margin: 4px 0 20px; }
+.wave .mid { fill: var(--faint); }
+
+/* roadmap */
+.c { display: inline-block; font-size: var(--fs-small); letter-spacing: .06em; padding: 0 6px; white-space: nowrap; text-transform: uppercase; border: 1px solid var(--strong); }
+.c.done { background: var(--strong); color: var(--bg); }
+.c.now, .c.next { border-style: dashed; color: var(--strong); font-weight: 600; }
+.c.todo { border-color: var(--faint); color: var(--muted); }
+.tw { border-top: 1px solid var(--strong); margin: 8px 0 0; }
+.tw table { width: 100%; }
+.tw th { font-size: var(--fs-small); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 8px; }
+.tw td.f { color: var(--muted); font-size: 12px; }
+.tw tr.hl td { background: color-mix(in srgb, var(--strong) 6%, transparent); }
+.tw tr.tot td { font-weight: 600; color: var(--strong); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.cov { display: flex; height: 9px; min-width: 110px; border: 1px solid var(--rule); }
+.cov i { display: block; height: 100%; }
+.cov .vm { background: var(--faint); } .cov .pr { background: var(--strong); }
+.cov .te { background: repeating-linear-gradient(90deg, var(--strong) 0 1px, transparent 1px 3px); }
+.legend { font-size: var(--fs-small); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; align-items: center; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.legend .cov { min-width: 24px; }
+.m1 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; }
+.timeline { grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); }
+.m1 pre { border-top: 1px solid var(--faint); padding-top: 12px; }
+@media (max-width: 820px) { .m1 { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar"><span class="cell first">OTYPE</span><span class="cell">roadmap</span><span class="cell">2 october 2026</span><span class="cell end">OT1</span><button id="theme" class="cell" type="button">dark</button></div>
+<header class="top">
+  <h1 aria-label="otype"><svg class="mark" viewBox="0 0 29 10" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="7" y="0" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="6" y="2" width="4" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="4" height="1"/><rect x="25" y="2" width="3" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="5" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="28" y="6" width="1" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="8" y="7" width="2" height="1"/><rect x="13" y="7" width="4" height="1"/><rect x="18" y="7" width="4" height="1"/><rect x="25" y="7" width="3" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="18" y="9" width="1" height="1"/></svg></h1>
+  <p class="tag">roadmap · a scripting language for ot1 · ot cfw · <a href="./">command reference</a></p>
+  <div class="steps" aria-hidden="true"><i class="f on"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
+</header>
+
+<div class="hero"><div class="txt">
+  <p>OType is the scripting language of ot1: small functions that you write, run from a menu, and that change the pattern, the sample pool or the part in one gesture.</p>
+  <p>Everything on the computer side works: you can write a script, check it, and run it in a simulator on a copy of your own bank and card. <b>Nothing runs on the instrument yet.</b> The first milestone puts three real scripts on it.</p>
+</div></div>
+
+<main>
+<section id="road"><h2><span class="hb">Where OType stands</span></h2>
+  <ol class="timeline"><li class=""><span class="led" aria-hidden="true"></span><span class="when">language</span><span class="what">syntax, checker, editor support, this reference</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">simulator</span><span class="what">run a script on a copy of your bank and card, see the pattern before and after</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">compiled table</span><span class="what">the form scripts take on the unit, and a reference machine that runs it</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">firmware study</span><span class="what">how the unit writes trigs, locks and slots, read only</span></li><li class="now"><span class="led" aria-hidden="true"></span><span class="when">first scripts on the unit</span><span class="what">milestone M1, below</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">then</span><span class="what">p-locks, trig conditions, micro timing and retrigs, the part, tempo</span></li></ol>
+</section>
+
+<section id="m1"><h2><span class="hb">Milestone M1</span></h2>
+  <div class="m1">
+    <div class="txt">
+      <p><b>From the function menu, run a script that picks precise files on the card, fills the sample pool with them, places trigs and sets sample locks.</b> Everything else comes after.</p>
+      <p>Each stage ends on a proof: the unit's result must equal the simulator's, byte for byte, before the next one starts.</p>
+      <div class="tw"><table><thead><tr><th>stage</th><th>what</th><th>state</th><th>proof</th></tr></thead><tbody><tr><td><b>E0</b></td><td>the M1 profile on the computer</td><td><span class="c done">done</span></td><td class="f">the three scripts below run in the simulator on a copy of a real card</td></tr><tr class="hl"><td><b>E1</b></td><td>the OType machine on the unit</td><td><span class="c next">next</span></td><td class="f">same results as the reference machine, in the emulator</td></tr><tr><td><b>E2</b></td><td>trigs and sample locks</td><td><span class="c todo">to do</span></td><td class="f">the bank&#x27;s bytes equal the simulator&#x27;s</td></tr><tr><td><b>E3</b></td><td>files on the card and sample slots</td><td><span class="c todo">to do</span></td><td class="f">same file lists and slots as the simulator, on a FAT32 card</td></tr><tr><td><b>E3b</b></td><td>the compiler on the unit</td><td><span class="c todo">to do</span></td><td class="f">scripts are read as text from the card</td></tr><tr><td><b>E4</b></td><td>a SCRIPTS row in the function menu</td><td><span class="c todo">to do</span></td><td class="f">the first scripts run on a real machine</td></tr></tbody></table></div>
+    </div>
+    <div>
+      <h3>the three M1 scripts</h3>
+<pre><code><span class="c-kw">def</span> <span class="c-user">kicks</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;POOL&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;KICKS&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;fill free slots?&quot;</span>
+  <span class="c-api">dir</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-kw">deep</span>
+  <span class="c-api">ext</span> <span class="c-user">wav</span>
+  <span class="c-api">match</span> <span class="c-str">&quot;bd*&quot;</span> <span class="c-str">&quot;kick*&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">8</span>:
+    <span class="c-var">a</span> <span class="c-api">slot.firstfree</span>
+    <span class="c-kw">if</span> <span class="c-var">a</span>: <span class="c-api">slot.load</span> <span class="c-var">a</span> <span class="c-api">file.pick</span>
+
+<span class="c-kw">def</span> <span class="c-user">kit_lock</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;TRIGS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;KIT LOCK&quot;</span>
+  <span class="c-api">dir</span> <span class="c-str">&quot;AUDIO/DRUMS/ELKA&quot;</span>
+  <span class="c-api">match</span> <span class="c-str">&quot;*hat*&quot;</span>
+  <span class="c-api">slots.none</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">4</span>:
+    <span class="c-var">a</span> <span class="c-api">slot.firstfree</span>
+    <span class="c-api">slot.load</span> <span class="c-var">a</span> <span class="c-api">file.pick</span>
+    <span class="c-api">slots.add</span> <span class="c-var">a</span>
+  <span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
+    <span class="c-kw">each</span>: <span class="c-api">smp.set</span> <span class="c-var">i</span> <span class="c-api">slots.rnd</span>
+
+<span class="c-kw">def</span> <span class="c-user">four</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;TRIGS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FOUR&quot;</span>
+  <span class="c-api">tr.clr</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-var">i</span> <span class="c-num">4</span> <span class="c-num">1</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span>
+  <span class="c-kw">prob</span> <span class="c-num">30</span>: <span class="c-api">tr.add</span> <span class="c-num">15</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<section id="decisions"><h2><span class="hb">Decided</span></h2>
+  <ul class="txt"><li><b>scripts are plain text on the card</b> — the unit compiles them itself: write a script on your computer, copy it, run it</li><li><b>one SCRIPTS row in the function menu</b> — the arrows choose the script, a press runs it, YES/NO before anything destructive</li><li><b>file lists hold up to 4096 names</b> — enough for a full sample library; names longer than 127 characters are skipped with a warning</li><li><b>paths start at the set</b> — <code><span class="c-api">dir</span> <span class="c-str">&quot;AUDIO/DRUMS&quot;</span></code> reads the AUDIO folder of the current set</li><li><b>same result everywhere</b> — the simulator, the reference machine and the unit give the same pattern for the same seed</li></ul>
+</section>
+
+<section id="ops"><h2><span class="hb">Operations</span></h2>
+  <p class="txt">130 operations are defined; 86 of them are part of M1. Each one needs either nothing from the firmware (the language itself) or a firmware routine, found or still to find.</p>
+  <div class="tw"><table><thead><tr><th>family</th><th class="num">ops</th><th>firmware</th><th class="num">language</th><th class="num">found</th><th class="num">to find</th><th class="num">in M1</th></tr></thead><tbody><tr><td>lang</td><td class="num">5</td><td><span class="cov"><i class="vm" style="width:100.0%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5 / 5</td></tr><tr><td>math</td><td class="num">11</td><td><span class="cov"><i class="vm" style="width:100.0%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">11</td><td class="num">0</td><td class="num">0</td><td class="num">11 / 11</td></tr><tr><td>logic</td><td class="num">12</td><td><span class="cov"><i class="vm" style="width:100.0%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="num">12 / 12</td></tr><tr><td>random</td><td class="num">5</td><td><span class="cov"><i class="vm" style="width:100.0%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5 / 5</td></tr><tr><td>rhythm</td><td class="num">3</td><td><span class="cov"><i class="vm" style="width:66.7%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:33.3%"></i></span></td><td class="num">2</td><td class="num">0</td><td class="num">1</td><td class="num">2 / 3</td></tr><tr><td>state</td><td class="num">10</td><td><span class="cov"><i class="vm" style="width:100.0%"></i><i class="pr" style="width:0.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">10</td><td class="num">0</td><td class="num">0</td><td class="num">10 / 10</td></tr><tr><td>context</td><td class="num">11</td><td><span class="cov"><i class="vm" style="width:90.9%"></i><i class="pr" style="width:9.1%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">10</td><td class="num">1</td><td class="num">0</td><td class="num">11 / 11</td></tr><tr><td>trigs</td><td class="num">9</td><td><span class="cov"><i class="vm" style="width:0.0%"></i><i class="pr" style="width:66.7%"></i><i class="te" style="width:33.3%"></i></span></td><td class="num">0</td><td class="num">6</td><td class="num">3</td><td class="num">7 / 9</td></tr><tr><td>locks</td><td class="num">30</td><td><span class="cov"><i class="vm" style="width:56.7%"></i><i class="pr" style="width:40.0%"></i><i class="te" style="width:3.3%"></i></span></td><td class="num">17</td><td class="num">12</td><td class="num">1</td><td class="num">6 / 30</td></tr><tr><td>trigword</td><td class="num">5</td><td><span class="cov"><i class="vm" style="width:0.0%"></i><i class="pr" style="width:40.0%"></i><i class="te" style="width:60.0%"></i></span></td><td class="num">0</td><td class="num">2</td><td class="num">3</td><td class="num">–</td></tr><tr><td>part</td><td class="num">11</td><td><span class="cov"><i class="vm" style="width:0.0%"></i><i class="pr" style="width:81.8%"></i><i class="te" style="width:18.2%"></i></span></td><td class="num">0</td><td class="num">9</td><td class="num">2</td><td class="num">–</td></tr><tr><td>card</td><td class="num">7</td><td><span class="cov"><i class="vm" style="width:85.7%"></i><i class="pr" style="width:14.3%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">6</td><td class="num">1</td><td class="num">0</td><td class="num">7 / 7</td></tr><tr><td>slots</td><td class="num">10</td><td><span class="cov"><i class="vm" style="width:30.0%"></i><i class="pr" style="width:70.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">3</td><td class="num">7</td><td class="num">0</td><td class="num">10 / 10</td></tr><tr><td>ui</td><td class="num">1</td><td><span class="cov"><i class="vm" style="width:0.0%"></i><i class="pr" style="width:100.0%"></i><i class="te" style="width:0.0%"></i></span></td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">–</td></tr><tr class="tot"><td>total</td><td class="num">130</td><td></td><td class="num">81</td><td class="num">39</td><td class="num">10</td><td class="num">86 / 130</td></tr></tbody></table></div>
+  <div class="legend">
+    <span><span class="cov"><i class="vm" style="width:100%"></i></span> language only</span>
+    <span><span class="cov"><i class="pr" style="width:100%"></i></span> routine found and used on the unit</span>
+    <span><span class="cov"><i class="te" style="width:100%"></i></span> routine still to find</span>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>otype — a scripting language for ot1 · ot cfw · updated 2 october 2026</p>
+  <p>syntax directly inspired by <a href="https://monome.org/docs/teletype/">monome teletype</a> · not affiliated with, endorsed or supported by elektron or monome</p>
+  <p>elektron and octatrack are trademarks of elektron music machines; monome and teletype belong to monome. the names are used only to say what this works with.</p>
+  <p>no elektron firmware, os image, disassembly or code is distributed here or in ot1.</p>
+  <p><a href="./">command reference</a> · <a href="https://github.com/nordseele/ot1">ot1</a> · © nordseele 2026</p>
+</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function current() { return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light'); }
+  function label() { var t = current(); btn.textContent = t === 'dark' ? 'light' : 'dark';
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); }
+  var saved = null; try { saved = localStorage.getItem('otype-theme'); } catch (e) {}
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  label();
+  if (mq.addEventListener) mq.addEventListener('change', label);
+  btn.addEventListener('click', function () {
+    var t = current() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', t); label();
+    try { localStorage.setItem('otype-theme', t); } catch (e) {}
+  });
+  var cols = Array.prototype.slice.call(document.querySelectorAll('.wave g rect'));
+  var R = 5, x = 7, i = 0, amps = [];
+  function next() {                      /* same generator as wave_amps above */
+    x = (Math.imul(x, 1103515245) + 12345) & 0x7fffffff;
+    var k = i % 8, hit = k === 0 ? R : (k === 4 && (x >> 8) & 1 ? R - 1 : 0);
+    var env = Math.max(hit, Math.round(R * Math.pow(0.8, i % 4)) - 1);
+    i++; return Math.max(0, Math.min(R, env - (x >> 12) % 2));
+  }
+  for (var c = 0; c < cols.length; c++) amps.push(next());
+  if (cols.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () {
+      amps.shift(); amps.push(next());
+      cols.forEach(function (r, c) { r.setAttribute('y', R - amps[c]); r.setAttribute('height', 2 * amps[c] + 1); });
+    }, 110);
+  }
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.steps i')), at = 0;
+  var tempo = parseFloat(getComputedStyle(root).getPropertyValue('--tempo')) * 1000 || 500;
+  if (steps.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () { steps[at].classList.remove('on'); at = (at + 1) % steps.length; steps[at].classList.add('on'); }, tempo);
+  }
+})();
+</script>
+</body>
+</html>
