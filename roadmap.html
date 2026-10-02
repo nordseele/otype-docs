@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OType Roadmap</title>
 <meta name="description" content="Where OType, the scripting language of ot1, stands.">
+<meta name="theme-color" content="#1a1a1a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="otype">
+<meta property="og:title" content="OType Roadmap">
+<meta property="og:description" content="Where OType, the scripting language of ot1, stands.">
+<meta property="og:url" content="https://nordseele.github.io/otype-docs/roadmap.html">
+<meta property="og:image" content="https://nordseele.github.io/otype-docs/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="otype: a scripting language for ot1">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;1,400&display=swap">
@@ -263,7 +274,7 @@ header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto;
     <div class="txt">
       <p><b>From the function menu, run a script that picks precise files on the card, fills the sample pool with them, places trigs and sets sample locks.</b> Everything else comes after.</p>
       <p>Each stage ends on a proof: the unit's result must equal the simulator's, byte for byte, before the next one starts.</p>
-      <div class="tw"><table><thead><tr><th>stage</th><th>what</th><th>state</th><th>proof</th></tr></thead><tbody><tr><td><b>E0</b></td><td>the M1 profile on the computer</td><td><span class="c done">done</span></td><td class="f">the three scripts below run in the simulator on a copy of a real card</td></tr><tr class="hl"><td><b>E1</b></td><td>the OType machine on the unit</td><td><span class="c next">next</span></td><td class="f">same results as the reference machine, in the emulator</td></tr><tr><td><b>E2</b></td><td>trigs and sample locks</td><td><span class="c todo">to do</span></td><td class="f">the bank&#x27;s bytes equal the simulator&#x27;s</td></tr><tr><td><b>E3</b></td><td>files on the card and sample slots</td><td><span class="c todo">to do</span></td><td class="f">same file lists and slots as the simulator, on a FAT32 card</td></tr><tr><td><b>E3b</b></td><td>the compiler on the unit</td><td><span class="c todo">to do</span></td><td class="f">scripts are read as text from the card</td></tr><tr><td><b>E4</b></td><td>a SCRIPTS row in the function menu</td><td><span class="c todo">to do</span></td><td class="f">the first scripts run on a real machine</td></tr></tbody></table></div>
+      <div class="tw"><table><thead><tr><th>stage</th><th>what</th><th>state</th><th>proof</th></tr></thead><tbody><tr><td><b>E0</b></td><td>the M1 profile on the computer</td><td><span class="c done">done</span></td><td class="f">the three scripts below run in the simulator on a copy of a real card</td></tr><tr><td><b>E1</b></td><td>the OType machine on the unit</td><td><span class="c now">in progress</span></td><td class="f">same results as the reference machine, in the emulator; first step done: compiled code runs inside the firmware module</td></tr><tr><td><b>E2</b></td><td>trigs and sample locks</td><td><span class="c todo">to do</span></td><td class="f">the bank&#x27;s bytes equal the simulator&#x27;s</td></tr><tr><td><b>E3</b></td><td>files on the card and sample slots</td><td><span class="c todo">to do</span></td><td class="f">same file lists and slots as the simulator, on a FAT32 card</td></tr><tr><td><b>E3b</b></td><td>the compiler on the unit</td><td><span class="c todo">to do</span></td><td class="f">scripts are read as text from the card</td></tr><tr><td><b>E4</b></td><td>a SCRIPTS row in the function menu</td><td><span class="c todo">to do</span></td><td class="f">the first scripts run on a real machine</td></tr></tbody></table></div>
     </div>
     <div>
       <h3>the three M1 scripts</h3>
