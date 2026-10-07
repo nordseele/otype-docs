@@ -157,7 +157,7 @@ footer a { color: inherit; text-decoration: underline; text-underline-offset: 3p
   .wrap { padding-block: 16px 56px; }
 }
 
-/* octalab page: added on top of cheatsheet.css (same tokens, same status bar, wordmark and
+/* this page: added on top of cheatsheet.css (same tokens, same status bar, wordmark and
    playhead). Layout: one column; each feature = text beside its photos on wide screens. */
 body { margin: 0; }
 .wrap { max-width: 1180px; }
@@ -196,7 +196,7 @@ main section { margin: 56px 0 0; }
 .feature h3 { margin: 0 0 12px; font-size: 15px; font-weight: 600; letter-spacing: 0.04em; text-transform: none; color: var(--strong); }
 .feature h4 { margin: 20px 0 8px; font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--strong); }
 
-/* where octalab stands: one step per period */
+/* where it stands: one step per period */
 .timeline { list-style: none; margin: 8px 0 28px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); border: solid var(--rule); border-width: 1px 0 0 1px; }
 .timeline li { display: grid; grid-template-rows: auto auto 1fr; gap: 8px; padding: 14px 14px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0; }
 .timeline li::before { content: none; }
@@ -248,35 +248,11 @@ header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto;
 .timeline { grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); }
 .m1 pre { border-top: 1px solid var(--faint); padding-top: 12px; }
 @media (max-width: 820px) { .m1 { grid-template-columns: minmax(0, 1fr); } }
-
-/* roadmap */
-.c { display: inline-block; font-size: var(--fs-small); letter-spacing: .06em; padding: 0 6px; white-space: nowrap; text-transform: uppercase; border: 1px solid var(--strong); }
-.c.done { background: var(--strong); color: var(--bg); }
-.c.now, .c.next { border-style: dashed; color: var(--strong); font-weight: 600; }
-.c.todo { border-color: var(--faint); color: var(--muted); }
-.tw { border-top: 1px solid var(--strong); margin: 8px 0 0; }
-.tw table { width: 100%; }
-.tw th { font-size: var(--fs-small); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 8px; }
-.tw td.f { color: var(--muted); font-size: 12px; }
-.tw tr.hl td { background: color-mix(in srgb, var(--strong) 6%, transparent); }
-.tw tr.tot td { font-weight: 600; color: var(--strong); }
-.num { text-align: right; font-variant-numeric: tabular-nums; }
-.cov { display: flex; height: 9px; min-width: 110px; border: 1px solid var(--rule); }
-.cov i { display: block; height: 100%; }
-.cov .vm { background: var(--faint); } .cov .pr { background: var(--strong); }
-.cov .te { background: repeating-linear-gradient(90deg, var(--strong) 0 1px, transparent 1px 3px); }
-.legend { font-size: var(--fs-small); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; align-items: center; }
-.legend span { display: inline-flex; gap: 6px; align-items: center; }
-.legend .cov { min-width: 24px; }
-.m1 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; }
-.timeline { grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); }
-.m1 pre { border-top: 1px solid var(--faint); padding-top: 12px; }
-@media (max-width: 820px) { .m1 { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="bar"><span class="cell first">OTYPE</span><span class="cell">roadmap</span><span class="cell">5 october 2026</span><span class="cell end">OT1</span><button id="theme" class="cell" type="button">dark</button></div>
+<div class="bar"><span class="cell first">OTYPE</span><span class="cell">roadmap</span><span class="cell">7 october 2026</span><span class="cell end">OT1</span><button id="theme" class="cell" type="button">dark</button></div>
 <header class="top">
   <h1 aria-label="otype"><svg class="mark" viewBox="0 0 29 10" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="7" y="0" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="6" y="2" width="4" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="4" height="1"/><rect x="25" y="2" width="3" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="5" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="28" y="6" width="1" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="8" y="7" width="2" height="1"/><rect x="13" y="7" width="4" height="1"/><rect x="18" y="7" width="4" height="1"/><rect x="25" y="7" width="3" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="18" y="9" width="1" height="1"/></svg></h1>
   <p class="tag">roadmap · a scripting language for ot1 · ot cfw · <a href="./">command reference</a></p>
@@ -285,12 +261,12 @@ header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto;
 
 <div class="hero"><div class="txt">
   <p>OType is the scripting language of ot1: small functions that you write, run from a menu, and that change the pattern, the sample pool or the part in one gesture.</p>
-  <p>Everything on the computer side works: you can write a script, check it, and run it in a simulator on a copy of your own bank and card. <b>The first two milestones run on a real machine:</b> scripts from the menu pick files on the card, fill the sample pool, place trigs and set sample locks. Scripts also have their own page of six encoders in place of the GENERATOR. Next come p-locks, the part and the trig word.</p>
+  <p>Everything on the computer side works: you can write a script, check it, and run it in a simulator on a copy of your own bank and card. <b>The first two milestones run on a real machine:</b> scripts from the menu pick files on the card, fill the sample pool, place trigs and set sample locks, and scripts have their own page of six encoders. A script loader with typed parameters (yes/no, labelled choices, a folder picked on the card) is being tested now. Next come p-locks, the part and the trig word.</p>
 </div></div>
 
 <main>
 <section id="road"><h2><span class="hb">Where OType stands</span></h2>
-  <ol class="timeline"><li class=""><span class="led" aria-hidden="true"></span><span class="when">language</span><span class="what">syntax, checker, editor support, this reference</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">simulator</span><span class="what">run a script on a copy of your bank and card, see the pattern before and after</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">compiled table</span><span class="what">the form scripts take on the unit, and a reference machine that runs it</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">firmware study</span><span class="what">how the unit writes trigs, locks and slots, read only</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">first scripts on the unit</span><span class="what">milestone M1, below: passed on a real machine</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">the SCRIPT page</span><span class="what">M2: a script on a page of six encoders, a layer you print or discard, and a script box on a double FUNCTION press; passed on a real machine</span></li><li class="now"><span class="led" aria-hidden="true"></span><span class="when">p-locks, the part, the trig word</span><span class="what">M3: p-locks and trigless locks, LFOs, effects, scenes, track init, trig conditions, micro timing, retrigs, velocity curves; done on the computer and in the unit&#x27;s machine code, firmware side next</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">then</span><span class="what">tempo, a slot for a track, messages on screen</span></li></ol>
+  <ol class="timeline"><li class=""><span class="led" aria-hidden="true"></span><span class="when">language</span><span class="what">syntax, checker, editor support, this reference</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">simulator</span><span class="what">run a script on a copy of your bank and card, see the pattern before and after</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">compiled table</span><span class="what">the form scripts take on the unit, and a reference machine that runs it</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">firmware study</span><span class="what">how the unit writes trigs, locks and slots, read only</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">first scripts on the unit</span><span class="what">milestone M1, below: passed on a real machine</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">the SCRIPT page</span><span class="what">M2: a script on a page of six encoders, a layer you print or discard, and a script box on a double FUNCTION press; passed on a real machine</span></li><li class="now"><span class="led" aria-hidden="true"></span><span class="when">the script loader</span><span class="what">categories and scripts in two columns, and typed parameters: yes/no, a choice of labels, a folder picked on the card with a browser; built into the firmware, being tested on a real machine</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">p-locks, the part, the trig word</span><span class="what">M3: p-locks and trigless locks, LFOs, effects, scenes, track init, trig conditions, micro timing, retrigs, velocity curves; done on the computer and in the unit&#x27;s machine code, firmware side next</span></li><li class=""><span class="led" aria-hidden="true"></span><span class="when">then</span><span class="what">tempo, a slot for a track, messages on screen</span></li></ol>
 </section>
 
 <section id="m1"><h2><span class="hb">Milestone M1</span></h2>
@@ -334,7 +310,7 @@ header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto;
 </section>
 
 <section id="decisions"><h2><span class="hb">Decided</span></h2>
-  <ul class="txt"><li><b>scripts are plain text on the card</b> — the unit compiles them itself: write a script on your computer, copy it, run it</li><li><b>one SCRIPTS row in the function menu</b> — the arrows choose the script, a press runs it, YES/NO before anything destructive</li><li><b>file lists hold up to 4096 names</b> — enough for a full sample library; names longer than 127 characters are skipped with a warning</li><li><b>paths start at the set</b> — <code><span class="c-api">dir</span> <span class="c-str">&quot;AUDIO/DRUMS&quot;</span></code> reads the AUDIO folder of the current set</li><li><b>same result everywhere</b> — the simulator, the reference machine and the unit give the same pattern for the same seed</li><li><b>the question asked before a destructive script is yours</b> — <code><span class="c-kw">confirm</span> <span class="c-str">&quot;CLEAR ALL?&quot;</span></code> is kept in the compiled table and shown by the confirmation box (else the function&#x27;s name)</li><li><b>velocity curves</b> — <code><span class="c-api">dr.v</span> <span class="c-var">c</span> <span class="c-user">s</span></code>: eight curves of 16 steps (flat, beats, off-beats, ramps, eighths, tresillo, swell)</li><li><b>the sample pool in one press</b> — <code><span class="c-api">pool.rnd</span></code> fills every free slot with a random file of the list, never the same twice</li></ul>
+  <ul class="txt"><li><b>scripts are plain text on the card</b> — the unit compiles them itself: write a script on your computer, copy it, run it</li><li><b>one SCRIPTS row in the function menu</b> — the arrows choose the script, a press runs it, YES/NO before anything destructive</li><li><b>file lists hold up to 4096 names</b> — enough for a full sample library; names longer than 127 characters are skipped with a warning</li><li><b>paths start at the set</b> — <code><span class="c-api">dir</span> <span class="c-str">&quot;AUDIO/DRUMS&quot;</span></code> reads the AUDIO folder of the current set</li><li><b>same result everywhere</b> — the simulator, the reference machine and the unit give the same pattern for the same seed</li><li><b>the question asked before a destructive script is yours</b> — <code><span class="c-kw">confirm</span> <span class="c-str">&quot;CLEAR ALL?&quot;</span></code> is kept in the compiled table and shown by the confirmation box (else the function&#x27;s name)</li><li><b>velocity curves</b> — <code><span class="c-api">dr.v</span> <span class="c-var">c</span> <span class="c-user">s</span></code>: eight curves of 16 steps (flat, beats, off-beats, ramps, eighths, tresillo, swell)</li><li><b>the sample pool in one press</b> — <code><span class="c-api">pool.rnd</span></code> fills every free slot with a random file of the list, never the same twice</li><li><b>typed parameters</b> — <code><span class="c-kw">param</span> <span class="c-user">keep</span> <span class="c-user">bool</span> <span class="c-num">1</span></code> shows YES/NO, <code><span class="c-kw">param</span> <span class="c-user">rate</span> <span class="c-user">option</span> <span class="c-num">1</span> <span class="c-str">&quot;1/4&quot;</span> <span class="c-str">&quot;1/2&quot;</span> <span class="c-str">&quot;1&quot;</span></code> a choice of labels, <code><span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span></code> a folder picked on the card, read by <code><span class="c-api">dir</span> <span class="c-user">src</span> <span class="c-kw">deep</span></code>; a script with only numbers compiles to the same bytes as before</li></ul>
 </section>
 
 <section id="ops"><h2><span class="hb">Operations</span></h2>
@@ -349,7 +325,7 @@ header.top h1 .mark { width: min(100%, calc(var(--px-mark) * 41)); height: auto;
 </main>
 
 <footer>
-  <p>otype — a scripting language for ot1 · ot cfw · updated 4 october 2026</p>
+  <p>otype — a scripting language for ot1 · ot cfw · updated 7 october 2026</p>
   <p>syntax directly inspired by <a href="https://monome.org/docs/teletype/">monome teletype</a> · not affiliated with, endorsed or supported by elektron or monome</p>
   <p>elektron and octatrack are trademarks of elektron music machines; monome and teletype belong to monome. the names are used only to say what this works with.</p>
   <p>no elektron firmware, os image, disassembly or code is distributed here or in ot1.</p>
