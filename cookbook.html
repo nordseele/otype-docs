@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Short recipes, one need each: copy one into a .OTY file of /SCRIPTS on the card, or start from it. Every recipe below is checked by the test suite (tools/test_otype_run.py, CookbookRecipes): it passes">
+<meta name="theme-color" content="#1a1a1a">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="otype">
+<meta property="og:title" content="OType Cookbook">
+<meta property="og:description" content="Short recipes, one need each: copy one into a .OTY file of /SCRIPTS on the card, or start from it. Every recipe below is checked by the test suite (tools/test_otype_run.py, CookbookRecipes): it passes">
+<meta property="og:url" content="https://nordseele.github.io/otype-docs/cookbook.html">
+<meta property="og:image" content="https://nordseele.github.io/otype-docs/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>OType Cookbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<div class="bar"><span class="cell first">OTYPE</span><span class="cell">cookbook</span><span class="cell">1.1</span><span class="cell steps" aria-hidden="true"><i class="f on"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="cell tag">scripting for the octatrack</span><span class="cell end">octatrack</span><button id="theme" class="cell" type="button">dark</button></div>
+<header class="top">
+  <h1 aria-label="otype"><a href="./" style="background:none"><svg class="mark" viewBox="0 0 29 10" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="7" y="0" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="6" y="2" width="4" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="4" height="1"/><rect x="25" y="2" width="3" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="5" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="28" y="6" width="1" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="8" y="7" width="2" height="1"/><rect x="13" y="7" width="4" height="1"/><rect x="18" y="7" width="4" height="1"/><rect x="25" y="7" width="3" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="18" y="9" width="1" height="1"/></svg></a></h1>
+  <nav class="site" aria-label="Site"><a href="learn/">learn</a><a href="./">reference</a><a href="roadmap.html">roadmap</a><a href="cookbook.html" aria-current="page">cookbook</a><a href="https://github.com/nordseele/otype">github</a></nav>
+</header>
+<div class="learn">
+<details class="toc" open><summary>Recipes</summary><ol><li class="grp">Basics</li><li><a href="#1-the-smallest-script-four-on-the-floor"><span>1</span>The smallest script: four on the floor</a></li><li><a href="#2-parameters-the-player-sets-before-running"><span>2</span>Parameters the player sets before running</a></li><li><a href="#3-typed-parameters-yesno-a-choice-a-folder"><span>3</span>Typed parameters: yes/no, a choice, a folder</a></li><li><a href="#4-random-but-the-same-every-time-seeds"><span>4</span>Random, but the same every time: seeds</a></li><li><a href="#5-several-tracks-in-one-press-with-your-own-functions"><span>5</span>Several tracks in one press, with your own functions</a></li><li><a href="#6-a-page-of-six-encoders"><span>6</span>A page of six encoders</a></li><li class="grp">Trigs and locks</li><li><a href="#7-accents-with-velocity-curves-and-p-locks"><span>7</span>Accents with velocity curves and p-locks</a></li><li><a href="#8-humanize-micro-timing-and-gentle-volume"><span>8</span>Humanize: micro timing and gentle volume</a></li><li><a href="#9-trig-conditions-a-fill-on-the-last-bar"><span>9</span>Trig conditions: a fill on the last bar</a></li><li><a href="#10-one-press-a-variation-the-next-press-back-state-between-presses"><span>10</span>One press a variation, the next press back: state between presses</a></li><li class="grp">Slots and samples</li><li><a href="#11-fill-the-static-slots-from-a-folder-the-player-picks"><span>11</span>Fill the Static slots from a folder the player picks</a></li><li><a href="#12-a-kit-from-a-folder-locked-at-random-on-the-trigs"><span>12</span>A kit from a folder, locked at random on the trigs</a></li><li><a href="#13-a-walk-through-samples-drunk"><span>13</span>A walk through samples: drunk</a></li><li class="grp">Live scripts</li><li><a href="#14-drum-and-bass-on-eight-tracks"><span>14</span>Drum and bass on eight tracks</a></li><li><a href="#15-a-fill-on-the-bar"><span>15</span>A fill on the bar</a></li><li><a href="#16-a-fill-where-the-snare-drops-out"><span>16</span>A fill where the snare drops out</a></li><li><a href="#17-live-sequencing-module"><span>17</span>Live sequencing module</a></li><li class="grp">MIDI in</li><li><a href="#18-pads-from-a-midi-controller"><span>18</span>Pads from a MIDI controller</a></li><li><a href="#19-a-filter-and-a-density-knob-from-two-ccs"><span>19</span>A filter and a density knob from two CCs</a></li><li><a href="#20-mirror-an-external-controller"><span>20</span>Mirror an external controller</a></li><li class="grp">MIDI out</li><li><a href="#21-a-generative-line-for-an-external-synth"><span>21</span>A generative line for an external synth</a></li><li class="grp">Recorder</li><li><a href="#22-record-a-loop-on-the-trigs"><span>22</span>Record a loop on the trigs</a></li><li><a href="#23-one-take-then-the-next-script-arms-it-again"><span>23</span>One take, then the next script arms it again</a></li><li><a href="#24-resample-the-loop"><span>24</span>Resample the loop</a></li><li class="grp">Linked scripts</li><li><a href="#25-an-acid-line-wired"><span>25</span>An acid line, wired</a></li><li class="grp">Audio</li><li><a href="#26-save-an-audio-take-and-load-it-into-a-flex-slot"><span>26</span>Save an audio take and load it into a Flex slot</a></li><li><a href="#27-build-a-sliced-sample-chain-from-a-folder"><span>27</span>Build a sliced sample chain from a folder</a></li><li><a href="#28-batch-normalize-samples"><span>28</span>Batch normalize samples</a></li><li class="grp">Part, effects, scenes, patterns</li><li><a href="#29-an-effect-and-an-lfo-set-in-the-part"><span>29</span>An effect and an LFO, set in the part</a></li><li><a href="#30-scenes-to-play-with-the-crossfader"><span>30</span>Scenes to play with the crossfader</a></li><li><a href="#31-show-where-patgo-landed"><span>31</span>Show where <code><span class="c-api">pat.go</span></code> landed</a></li><li><a href="#32-copy-a-pattern-from-a-script"><span>32</span>Copy a pattern from a script</a></li><li class="grp">Bulk jobs</li><li><a href="#33-bulk-jobs-on-the-static-slots-scenes-lfos-and-effects-as-loops"><span>33</span>Bulk jobs on the Static slots, scenes, LFOs and effects, as loops</a></li><li class="grp">Integrating the engine (for firmware authors)</li><li><a href="#i1-build-and-link-at-your-addresses"><span>I1</span>Build and link at your addresses</a></li><li><a href="#i2-write-the-entry-point"><span>I2</span>Write the entry point</a></li><li><a href="#i3-put-the-code-in-memory"><span>I3</span>Put the code in memory</a></li><li><a href="#i4-reserve-the-block"><span>I4</span>Reserve the block</a></li><li><a href="#i5-check-it-on-the-unit"><span>I5</span>Check it on the unit</a></li><li><a href="#i6-your-own-interface"><span>I6</span>Your own interface</a></li></ol></details>
+<article>
+<p class="kicker">cookbook</p>
+<h1>OType cookbook</h1>
+<p>Short recipes, one need each: copy one into a <code>.<span class="c-user">OTY</span></code> file of <code>/<span class="c-user">SCRIPTS</span></code> on the card, or start from it. Every recipe below is checked by the test suite (<code><span class="c-user">tools</span>/<span class="c-api">test_otype_run.py</span></code>, <code><span class="c-user">CookbookRecipes</span></code>): it passes the checker with the unit's profile and runs in the simulator. Firmware authors: the last part, "Integrating the engine", is for you. The language itself is in <code><span class="c-user">docs</span>/<span class="c-api">syntax.md</span></code>; every operation, with its arguments, is in the command reference (<code><span class="c-user">docs</span>/<span class="c-api">cheatsheet.html</span></code>).</p>
+<p>Try any recipe on the computer before the card:</p>
+<pre class="sh"><code>python3 tools/otype.py check --profile m1 MY.OTY
+python3 tools/otype.py run four_floor MY.OTY --seed 1
+python3 tools/otype.py run four_floor MY.OTY --seed 1 --bank PATH/TO/bank01.work --pattern 1   # your own pattern, read only</code></pre>
+<p>Conventions used here: a function acts on the <b>current track</b> and the <b>current pattern</b> unless it says <code><span class="c-kw">trk</span> …</code>; steps are numbered from 1; <code><span class="c-var">i</span></code> is the step (or loop index) being visited.</p>
+<h2 id="1-the-smallest-script-four-on-the-floor">1. The smallest script: four on the floor</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">four_floor</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;BASICS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FOUR FLOOR&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;REPLACE TRIGS?&quot;</span>
+  <span class="c-api">tr.clr</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-var">i</span> <span class="c-num">4</span> <span class="c-num">1</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre></figure>
+<ul><li><code><span class="c-kw">menu</span> <span class="c-str">&quot;CATEGORY&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;NAME&quot;</span></code> puts the function in the script menu of your firmware, under its category.</li><li><code><span class="c-kw">confirm</span></code> asks YES/NO first, with your own question; use it on anything that removes something.</li><li><code><span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:</code> loops <code><span class="c-var">i</span></code> from 1 to 16; <code><span class="c-kw">if</span> … :</code> runs the rest of the line when the condition is not 0.</li></ul>
+<h2 id="2-parameters-the-player-sets-before-running">2. Parameters the player sets before running</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">euclid_p</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;BASICS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;EUCLID&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">hits</span> <span class="c-num">5</span> <span class="c-num">1</span> <span class="c-num">16</span>
+  <span class="c-kw">param</span> <span class="c-user">rot</span> <span class="c-num">0</span> <span class="c-num">0</span> <span class="c-num">15</span>
+  <span class="c-kw">steps</span> <span class="c-kw">all</span>:
+    <span class="c-kw">each</span>:
+      <span class="c-kw">if</span> <span class="c-api">er.r</span> <span class="c-user">hits</span> <span class="c-num">16</span> <span class="c-user">rot</span> <span class="c-var">i</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span>
+      <span class="c-kw">else</span>: <span class="c-api">tr.del</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-kw">param</span> <span class="c-user">NAME</span> <span class="c-user">default</span> <span class="c-api">min</span> <span class="c-api">max</span></code> declares a value the player sets before the run, between <code><span class="c-api">min</span></code> and <code><span class="c-api">max</span></code>; the firmware's menu shows it. <code><span class="c-kw">steps</span> <span class="c-kw">all</span>:</code> + <code><span class="c-kw">each</span>:</code> visits every step; <code><span class="c-api">er.r</span> <span class="c-user">k</span> <span class="c-user">n</span> <span class="c-user">r</span> <span class="c-user">s</span></code> is 1 when step <code><span class="c-user">s</span></code> plays in a euclidean rhythm of <code><span class="c-user">k</span></code> hits over <code><span class="c-user">n</span></code> steps rotated by <code><span class="c-user">r</span></code>.</p>
+<h2 id="3-typed-parameters-yesno-a-choice-a-folder">3. Typed parameters: yes/no, a choice, a folder</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">density</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;BASICS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;DENSITY&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">amount</span> <span class="c-num">30</span> <span class="c-num">0</span> <span class="c-num">100</span>
+  <span class="c-kw">param</span> <span class="c-user">keep</span> <span class="c-user">bool</span> <span class="c-num">1</span>
+  <span class="c-kw">param</span> <span class="c-user">grid</span> <span class="c-user">option</span> <span class="c-num">0</span> <span class="c-str">&quot;16THS&quot;</span> <span class="c-str">&quot;8THS&quot;</span> <span class="c-str">&quot;4THS&quot;</span>
+  <span class="c-var">a</span> <span class="c-num">1</span>
+  <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-user">grid</span> <span class="c-num">1</span>: <span class="c-var">a</span> <span class="c-num">2</span>
+  <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-user">grid</span> <span class="c-num">2</span>: <span class="c-var">a</span> <span class="c-num">4</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:
+    <span class="c-kw">if</span> <span class="c-api">not</span> <span class="c-user">keep</span>: <span class="c-api">tr.del</span> <span class="c-var">i</span>
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-api">sub</span> <span class="c-var">i</span> <span class="c-num">1</span> <span class="c-var">a</span> <span class="c-num">0</span>: <span class="c-kw">prob</span> <span class="c-user">amount</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre></figure>
+<ul><li><code><span class="c-user">bool</span></code> shows YES/NO (1/0); <code><span class="c-user">option</span></code> shows labels, the script reads their index from 0.</li><li><code><span class="c-kw">prob</span> <span class="c-user">p</span>:</code> runs the rest of the line <code><span class="c-user">p</span></code> percent of the time.</li><li><code><span class="c-var">a</span></code>…<code><span class="c-var">z</span></code> (except <code><span class="c-var">i</span></code>) are variables; <code><span class="c-var">a</span> <span class="c-num">1</span></code> sets <code><span class="c-var">a</span></code>, <code><span class="c-api">sub</span> <span class="c-var">i</span> <span class="c-num">1</span></code> is <code><span class="c-var">i</span> - <span class="c-num">1</span></code> (prefix notation).</li></ul>
+<h2 id="4-random-but-the-same-every-time-seeds">4. Random, but the same every time: seeds</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">sprinkle_seeded</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;BASICS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;SPRINKLE 7&quot;</span>
+  <span class="c-kw">seed</span> <span class="c-num">7</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">prob</span> <span class="c-num">25</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre></figure>
+<p>Without <code><span class="c-kw">seed</span></code>, each press draws new numbers. With <code><span class="c-kw">seed</span> <span class="c-user">n</span></code>, a press always gives the same result; the simulator and the unit agree on it, so <code><span class="c-user">run</span> --<span class="c-kw">seed</span></code> shows exactly what the machine will do.</p>
+<h2 id="5-several-tracks-in-one-press-with-your-own-functions">5. Several tracks in one press, with your own functions</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">beat</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;DRUMS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;BEAT&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;REPLACE T1-T3?&quot;</span>
+  <span class="c-user">hits_on</span> <span class="c-op">|</span> <span class="c-num">1</span> <span class="c-num">4</span> <span class="c-num">0</span>
+  <span class="c-user">hits_on</span> <span class="c-op">|</span> <span class="c-num">2</span> <span class="c-num">2</span> <span class="c-num">4</span>
+  <span class="c-user">hits_on</span> <span class="c-op">|</span> <span class="c-num">3</span> <span class="c-num">7</span> <span class="c-num">0</span>
+
+<span class="c-kw">def</span> <span class="c-user">hits_on</span> <span class="c-op">|</span> <span class="c-user">track</span> <span class="c-user">hits</span> <span class="c-user">rot</span>
+  <span class="c-kw">trk</span> <span class="c-user">track</span>:
+    <span class="c-api">tr.clr</span>
+    <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">if</span> <span class="c-api">er.r</span> <span class="c-user">hits</span> <span class="c-num">16</span> <span class="c-user">rot</span> <span class="c-var">i</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-kw">def</span> <span class="c-user">name</span> <span class="c-op">|</span> <span class="c-user">args</span></code> declares a function that takes arguments; call it with <code><span class="c-user">name</span> <span class="c-op">|</span> <span class="c-user">values</span></code>. A function without <code><span class="c-kw">menu</span></code> is not shown in the menu: it is a brick for the others. <code><span class="c-kw">trk</span> <span class="c-var">t</span>:</code> acts on track <code><span class="c-var">t</span></code> for the rest of its block.</p>
+<h2 id="6-a-page-of-six-encoders">6. A page of six encoders</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">dens_page</span>
+  <span class="c-kw">page</span> <span class="c-str">&quot;DENS&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">pct</span> <span class="c-num">25</span> <span class="c-num">0</span> <span class="c-num">100</span>
+  <span class="c-kw">each</span>:
+    <span class="c-kw">if</span> <span class="c-api">not</span> <span class="c-api">has.trig</span> <span class="c-var">i</span>:
+      <span class="c-kw">prob</span> <span class="c-user">pct</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-kw">page</span> <span class="c-str">&quot;LABEL&quot;</span></code> puts the function on a page of encoders instead of the menu (when your firmware has one: the engine itself only lists <code><span class="c-kw">menu</span></code> functions); its parameters (at most six) are the encoders A..F. The page reruns it each time an encoder moves, on the pattern as you left it, and keeps the result as a layer you print or discard. A page function takes no argument and does not touch the card, the Static slots.</p>
+<h2 id="7-accents-with-velocity-curves-and-p-locks">7. Accents with velocity curves and p-locks</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">accents</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LOCKS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;ACCENTS&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">curve</span> <span class="c-user">option</span> <span class="c-num">1</span> <span class="c-str">&quot;FLAT&quot;</span> <span class="c-str">&quot;BEATS&quot;</span> <span class="c-str">&quot;OFFBEATS&quot;</span> <span class="c-str">&quot;RAMP UP&quot;</span> <span class="c-str">&quot;RAMP DN&quot;</span> <span class="c-str">&quot;8THS&quot;</span> <span class="c-str">&quot;TRESILLO&quot;</span> <span class="c-str">&quot;SWELL&quot;</span>
+  <span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
+    <span class="c-kw">each</span>: <span class="c-api">pl.set</span> <span class="c-var">i</span> <span class="c-api">amp.vol</span> <span class="c-api">dr.v</span> <span class="c-user">curve</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">dr.v</span> <span class="c-var">c</span> <span class="c-user">s</span></code> is a velocity 0..127 from one of eight 16-step curves. <code><span class="c-api">pl.set</span> <span class="c-user">s</span> <span class="c-user">p</span> <span class="c-user">v</span></code> locks parameter <code><span class="c-user">p</span></code> (here <code><span class="c-api">amp.vol</span></code>) on step <code><span class="c-user">s</span></code>; a step without a trig is skipped and counted, never turned into a trig. Parameter names: <code><span class="c-api">amp.vol</span></code>, <code><span class="c-api">lfo.spd</span> <span class="c-num">1</span></code>…, or by page and position: <code><span class="c-api">fx1</span> <span class="c-num">1</span></code> is the first FX1 parameter.</p>
+<h2 id="8-humanize-micro-timing-and-gentle-volume">8. Humanize: micro timing and gentle volume</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">humanize</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;TRIGS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;HUMANIZE&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">amount</span> <span class="c-num">4</span> <span class="c-num">0</span> <span class="c-num">23</span>
+  <span class="c-api">micro.rnd</span> <span class="c-user">amount</span>
+  <span class="c-api">pl.vary</span> <span class="c-api">amp.vol</span> <span class="c-num">10</span></code></pre></figure>
+<p><code><span class="c-api">micro.rnd</span> <span class="c-var">x</span></code> shifts each trig by up to <code><span class="c-var">x</span></code> micro steps either side. <code><span class="c-api">pl.vary</span> <span class="c-user">p</span> <span class="c-var">x</span></code> moves existing locks of <code><span class="c-user">p</span></code> by up to <code><span class="c-var">x</span></code> percent; steps without that lock are left alone. Both already visit every step with a trig: wrapping them in <code><span class="c-kw">steps</span> <span class="c-api">has.trig</span>: <span class="c-kw">each</span>:</code> would run them once per trig and cost sixteen times more (the checker refuses it: over 4096).</p>
+<h2 id="9-trig-conditions-a-fill-on-the-last-bar">9. Trig conditions: a fill on the last bar</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">fill_end</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;TRIGS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FILL END&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">13</span> <span class="c-num">16</span>:
+    <span class="c-api">tr.add</span> <span class="c-var">i</span>
+    <span class="c-api">cond.set</span> <span class="c-var">i</span> <span class="c-cond">fill</span>
+  <span class="c-api">cond.set</span> <span class="c-num">16</span> <span class="c-cond">1:2</span></code></pre></figure>
+<p><code><span class="c-api">cond.set</span> <span class="c-user">s</span> <span class="c-var">c</span></code> writes the trig condition: <code><span class="c-cond">fill</span></code>, <code><span class="c-cond">!fill</span></code>, <code><span class="c-cond">pre</span></code>, <code><span class="c-cond">nei</span></code>, <code><span class="c-cond">1st</span></code>, a ratio <code><span class="c-var">a</span>:<span class="c-var">b</span></code>, or a probability among the Octatrack's own (<code><span class="c-cond">25%</span></code>, <code><span class="c-cond">50%</span></code>…). <code><span class="c-api">off</span></code> removes it.</p>
+<h2 id="10-one-press-a-variation-the-next-press-back-state-between-presses">10. One press a variation, the next press back: state between presses</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">ab_fx</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LOCKS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;A/B FX&quot;</span>
+  <span class="c-kw">seed</span> <span class="c-api">?</span> <span class="c-var">flip</span> <span class="c-num">7</span> <span class="c-num">0</span>
+  <span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
+    <span class="c-api">pl.rnd</span> <span class="c-api">fx1</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-var">flip</span></code> alternates 0, 1, 0… on each read and keeps its value between presses (so do <code><span class="c-var">o</span></code> and <code><span class="c-var">drunk</span></code>). <code><span class="c-api">?</span> <span class="c-var">c</span> <span class="c-var">x</span> <span class="c-var">y</span></code> is <code><span class="c-var">x</span></code> when <code><span class="c-var">c</span></code> is not 0, else <code><span class="c-var">y</span></code>: odd presses use seed 7, even presses seed 0. <code><span class="c-kw">steps</span> <span class="c-api">has.trig</span>:</code> restricts the next lines to the steps that hold a trig.</p>
+<h2 id="11-fill-the-static-slots-from-a-folder-the-player-picks">11. Fill the Static slots from a folder the player picks</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">static_from</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;STATIC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FILL FROM&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span>
+  <span class="c-api">dir</span> <span class="c-user">src</span> <span class="c-kw">deep</span>
+  <span class="c-api">ext</span> <span class="c-user">wav</span> <span class="c-user">aif</span> <span class="c-user">aiff</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">128</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">i</span> <span class="c-api">file.len</span>: <span class="c-kw">break</span>
+    <span class="c-var">a</span> <span class="c-api">static.firstfree</span>
+    <span class="c-kw">if</span> <span class="c-api">ez</span> <span class="c-var">a</span>: <span class="c-kw">break</span>
+    <span class="c-api">static.load</span> <span class="c-var">a</span> <span class="c-api">file.pick</span></code></pre></figure>
+<p><code><span class="c-api">dir</span> <span class="c-user">path</span> [<span class="c-kw">deep</span>]</code> lists the files of a folder of the current set (<code><span class="c-kw">deep</span></code>: with its subfolders); <code><span class="c-api">ext</span></code> and <code><span class="c-api">match</span></code> filter that list. The loop gives every free Static slot a random file of the list, never the same one twice (<code><span class="c-api">file.pick</span></code>); it stops when the files or the free slots run out. <code><span class="c-api">static.load</span> <span class="c-user">n</span> <span class="c-user">f</span></code> loads file <code><span class="c-user">f</span></code> of the list into Static slot <code><span class="c-user">n</span></code>; <code><span class="c-api">static.firstfree</span></code> is the first free one (0 if none). Lists hold up to 4096 names. The Static list is the sample list of the project: the Flex list is separate. More ways to fill, clear and randomize the slots are in recipe 33.</p>
+<h2 id="12-a-kit-from-a-folder-locked-at-random-on-the-trigs">12. A kit from a folder, locked at random on the trigs</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">kit_lock</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LOCKS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;KIT LOCK&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">files</span> <span class="c-num">4</span> <span class="c-num">1</span> <span class="c-num">8</span>
+  <span class="c-api">dir</span> <span class="c-user">src</span> <span class="c-kw">deep</span>
+  <span class="c-api">match</span> <span class="c-str">&quot;*hat*&quot;</span> <span class="c-str">&quot;*hh*&quot;</span>
+  <span class="c-api">slots.clr</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-user">files</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">i</span> <span class="c-api">file.len</span>: <span class="c-kw">break</span>
+    <span class="c-var">a</span> <span class="c-api">static.firstfree</span>
+    <span class="c-kw">if</span> <span class="c-api">ez</span> <span class="c-var">a</span>: <span class="c-kw">break</span>
+    <span class="c-api">static.load</span> <span class="c-var">a</span> <span class="c-api">file.pick</span>
+    <span class="c-api">slots.add</span> <span class="c-var">a</span>
+  <span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
+    <span class="c-kw">each</span>: <span class="c-api">smp.set</span> <span class="c-var">i</span> <span class="c-api">slots.rnd</span></code></pre></figure>
+<p><code><span class="c-api">file.pick</span></code> never gives the same file twice in a row of picks; <code><span class="c-api">slots.clr</span></code> / <code><span class="c-api">slots.add</span></code> build a working set of slots, <code><span class="c-api">slots.rnd</span></code> draws one of them. <code><span class="c-kw">break</span></code> leaves the loop (no free slot, or no file left).</p>
+<h2 id="13-a-walk-through-samples-drunk">13. A walk through samples: drunk</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">smp_walk</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LOCKS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;SMP WALK&quot;</span>
+  <span class="c-api">drunk.min</span> <span class="c-num">1</span>
+  <span class="c-api">drunk.max</span> <span class="c-num">8</span>
+  <span class="c-var">drunk</span> <span class="c-num">4</span>
+  <span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
+    <span class="c-kw">each</span>: <span class="c-api">smp.set</span> <span class="c-var">i</span> <span class="c-var">drunk</span></code></pre></figure>
+<p><code><span class="c-var">drunk</span></code> moves by -1, 0 or +1 on each read, between <code><span class="c-api">drunk.min</span></code> and <code><span class="c-api">drunk.max</span></code>: neighbouring trigs get neighbouring sample slots.</p>
+<h2 id="14-drum-and-bass-on-eight-tracks">14. Drum and bass on eight tracks</h2>
+<p>A whole drum and bass tune, played live on the eight tracks from eight Static slots, never twice the same. It is the showcase of the 1.1 live scripts: <code><span class="c-kw">launch</span> <span class="c-num">384</span></code> waits for the bar, <code><span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span></code> runs every sixteenth, four <code><span class="c-kw">var</span></code>s keep the step, the bar and two filters from one sixteenth to the next.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">dnb</span>
+  <span class="c-kw">var</span> <span class="c-user">ticks</span> <span class="c-num">0</span>
+  <span class="c-kw">var</span> <span class="c-user">bars</span> <span class="c-num">0</span>
+  <span class="c-kw">var</span> <span class="c-user">reese</span> <span class="c-num">64</span>                           <span class="c-com"># the bass filter, a random walk</span>
+  <span class="c-kw">var</span> <span class="c-user">rise</span> <span class="c-num">0</span>                            <span class="c-com"># the break filter, opens over the breakdown</span>
+  <span class="c-kw">launch</span> <span class="c-num">384</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:                          <span class="c-com"># every sixteenth</span>
+    <span class="c-user">ticks</span> <span class="c-api">add</span> <span class="c-user">ticks</span> <span class="c-num">1</span>
+    <span class="c-var">a</span> <span class="c-api">mod</span> <span class="c-api">sub</span> <span class="c-user">ticks</span> <span class="c-num">1</span> <span class="c-num">16</span>                <span class="c-com"># step in the bar, 0..15</span>
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span>:
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-user">bars</span> <span class="c-num">0</span>: <span class="c-api">tempo</span> <span class="c-num">174</span>
+      <span class="c-user">bars</span> <span class="c-api">add</span> <span class="c-user">bars</span> <span class="c-num">1</span>
+      <span class="c-user">reese</span> <span class="c-api">add</span> <span class="c-user">reese</span> <span class="c-api">sub</span> <span class="c-api">rnd</span> <span class="c-num">25</span> <span class="c-num">12</span>       <span class="c-com"># the bass filter drifts each bar</span>
+      <span class="c-kw">if</span> <span class="c-api">lt</span> <span class="c-user">reese</span> <span class="c-num">30</span>: <span class="c-user">reese</span> <span class="c-num">30</span>
+      <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-user">reese</span> <span class="c-num">120</span>: <span class="c-user">reese</span> <span class="c-num">120</span>
+      <span class="c-kw">trk</span> <span class="c-num">7</span>:
+        <span class="c-api">par.set</span> <span class="c-api">fx1</span> <span class="c-num">2</span> <span class="c-user">reese</span>
+    <span class="c-var">b</span> <span class="c-api">mod</span> <span class="c-api">sub</span> <span class="c-user">bars</span> <span class="c-num">1</span> <span class="c-num">32</span>                 <span class="c-com"># bar in the arrangement, 0..31</span>
+    <span class="c-var">c</span> <span class="c-api">and</span> <span class="c-api">gt</span> <span class="c-var">b</span> <span class="c-num">11</span> <span class="c-api">lt</span> <span class="c-var">b</span> <span class="c-num">16</span>               <span class="c-com"># bars 13..16: the breakdown</span>
+    <span class="c-kw">if</span> <span class="c-var">c</span>:
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span>:
+        <span class="c-user">rise</span> <span class="c-api">add</span> <span class="c-api">mul</span> <span class="c-api">sub</span> <span class="c-var">b</span> <span class="c-num">12</span> <span class="c-num">30</span> <span class="c-num">10</span>     <span class="c-com"># 10, 40, 70, 100: the break opens</span>
+        <span class="c-kw">trk</span> <span class="c-num">6</span>:
+          <span class="c-api">par.set</span> <span class="c-api">fx1</span> <span class="c-num">2</span> <span class="c-user">rise</span>
+      <span class="c-kw">if</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">8</span>: <span class="c-api">play</span> <span class="c-num">6</span>       <span class="c-com"># break alone, half time</span>
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-var">a</span> <span class="c-num">4</span> <span class="c-num">2</span>:
+        <span class="c-kw">prob</span> <span class="c-num">40</span>: <span class="c-api">play</span> <span class="c-num">8</span>                 <span class="c-com"># fx, scattered</span>
+    <span class="c-kw">else</span>:
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span>:
+        <span class="c-kw">trk</span> <span class="c-num">6</span>:
+          <span class="c-api">par.set</span> <span class="c-api">fx1</span> <span class="c-num">2</span> <span class="c-num">127</span>
+      <span class="c-kw">if</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">10</span>: <span class="c-api">play</span> <span class="c-num">1</span>      <span class="c-com"># kick, the two-step</span>
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">7</span>:
+        <span class="c-kw">prob</span> <span class="c-num">20</span>: <span class="c-api">play</span> <span class="c-num">1</span>                 <span class="c-com"># a pushed kick, now and then</span>
+      <span class="c-kw">if</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">4</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">12</span>: <span class="c-api">play</span> <span class="c-num">2</span>      <span class="c-com"># snare</span>
+      <span class="c-kw">if</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">2</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">9</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">14</span>:
+        <span class="c-kw">prob</span> <span class="c-num">35</span>: <span class="c-api">play</span> <span class="c-num">3</span>                 <span class="c-com"># ghosts</span>
+      <span class="c-kw">trk</span> <span class="c-num">4</span>:
+        <span class="c-api">par.set</span> <span class="c-api">amp.vol</span> <span class="c-api">rrand</span> <span class="c-num">60</span> <span class="c-num">127</span>    <span class="c-com"># hats, a new accent every sixteenth</span>
+      <span class="c-kw">prob</span> <span class="c-num">75</span>: <span class="c-api">play</span> <span class="c-num">4</span>
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-var">a</span> <span class="c-num">4</span> <span class="c-num">2</span>:
+        <span class="c-kw">prob</span> <span class="c-num">50</span>: <span class="c-api">play</span> <span class="c-num">5</span>                 <span class="c-com"># ride on the off-beats</span>
+      <span class="c-kw">if</span> <span class="c-api">and</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">0</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-user">bars</span> <span class="c-num">4</span> <span class="c-num">1</span>: <span class="c-api">play</span> <span class="c-num">6</span>  <span class="c-com"># the break every four bars</span>
+      <span class="c-kw">if</span> <span class="c-api">or</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">6</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">14</span>: <span class="c-api">play</span> <span class="c-num">7</span>      <span class="c-com"># reese on the &quot;and&quot; of 2 and 4</span>
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">11</span>:
+        <span class="c-kw">prob</span> <span class="c-num">30</span>: <span class="c-api">play</span> <span class="c-num">7</span>                 <span class="c-com"># a bass pickup</span>
+      <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">b</span> <span class="c-num">15</span>:                       <span class="c-com"># the drop: fills on every fourth bar</span>
+        <span class="c-kw">if</span> <span class="c-api">and</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-user">bars</span> <span class="c-num">4</span> <span class="c-num">0</span> <span class="c-api">gt</span> <span class="c-var">a</span> <span class="c-num">11</span>:
+          <span class="c-api">play</span> <span class="c-num">3</span>
+          <span class="c-kw">prob</span> <span class="c-num">50</span>: <span class="c-api">play</span> <span class="c-num">2</span>
+        <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-var">a</span> <span class="c-num">15</span>:
+          <span class="c-kw">prob</span> <span class="c-num">25</span>: <span class="c-api">play</span> <span class="c-num">8</span></code></pre></figure>
+<ul><li><b>Set it up once.</b> [<code><span class="c-api">DNBFILL.OTY</span></code>](../modules/otype/examples/DNBFILL.OTY) (POOL &gt;&gt; DNB FILL) fills them from a folder. Slots 1..8 hold the kick, snare, ghost, hats, ride, break, a reese bass and an fx; tracks 1..8 are Static machines on slots 1..8, with the stock filter in FX1 and its BASE at 0. Start on an empty pattern: the script plays its own hits, it does not touch the pattern's trigs.</li><li><b>The arrangement, 32 bars.</b> <code><span class="c-var">b</span></code> is the bar in the arrangement. Bars 1..12 are the groove; 13..16 a breakdown where only the break plays, half time, its filter opening a step each bar; 17..32 the drop, with a fill at the end of every fourth bar. Then it starts again.</li><li><b>The groove.</b> <code><span class="c-var">a</span></code> is the sixteenth in the bar: the two-step (kick on 0 and 10, snare on 4 and 12), a pushed kick on 7 one time in five, random ghosts, hats with a new volume on every sixteenth, the ride on the off-beats, the reese on the "and" of 2 and 4 with a pickup on 11.</li><li><b>The filters.</b> <code><span class="c-user">reese</span></code> is a random walk: each bar the reese's filter WIDTH moves by up to 12, between 30 and 120. <code><span class="c-user">rise</span></code> opens the break over the breakdown; the drop puts it back wide open.</li><li><b>The file</b> is [<code><span class="c-user">modules</span>/<span class="c-kw">otype</span>/<span class="c-user">examples</span>/<span class="c-api">DNB.OTY</span></code>](../modules/otype/examples/DNB.OTY).</li></ul>
+<h2 id="15-a-fill-on-the-bar">15. A fill on the bar</h2>
+<p>A live script that changes the pattern on the bar, hands-free: <code><span class="c-kw">launch</span> <span class="c-num">384</span></code> makes its first run land on the next bar, then <code><span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">384</span></code> runs once per bar. Track 8 is the fill track: every fourth bar, four trigs appear at the end; on the other bars they are removed. The rest of the pattern keeps playing.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">bar_fill</span>
+  <span class="c-kw">var</span> <span class="c-user">bars</span> <span class="c-num">0</span>
+  <span class="c-kw">launch</span> <span class="c-num">384</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">384</span>:
+    <span class="c-user">bars</span> <span class="c-api">add</span> <span class="c-user">bars</span> <span class="c-num">1</span>
+    <span class="c-kw">trk</span> <span class="c-num">8</span>:
+      <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-user">bars</span> <span class="c-num">4</span> <span class="c-num">0</span>:
+        <span class="c-kw">l</span> <span class="c-num">13</span> <span class="c-num">16</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span>
+      <span class="c-kw">else</span>:
+        <span class="c-kw">l</span> <span class="c-num">13</span> <span class="c-num">16</span>: <span class="c-api">tr.del</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-kw">l</span> <span class="c-num">13</span> <span class="c-num">16</span>:</code> writes steps 13..16. Use a track whose steps 13..16 are free, or a throwaway pattern: <code><span class="c-api">tr.del</span></code> removes whatever was there. The same idea works on any track and any steps.</p>
+<h2 id="16-a-fill-where-the-snare-drops-out">16. A fill where the snare drops out</h2>
+<p><code><span class="c-kw">in</span> <span class="c-user">trig</span> <span class="c-num">4</span> <span class="c-kw">all</span>:</code> wakes on every trig placed on track 4, even when it does not play: a condition that failed, or a muted track. <code><span class="c-api">trig.hit</span></code> says which. When the snare is refused, a percussion fill takes its place on track 8.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">ghost</span>
+  <span class="c-kw">in</span> <span class="c-user">trig</span> <span class="c-num">4</span> <span class="c-kw">all</span>:
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">trig.hit</span> <span class="c-num">0</span>: <span class="c-api">play</span> <span class="c-num">8</span></code></pre></figure>
+<p>The wake is dated on track 4's tick, so the fill lands exactly where the snare would have. Put a fill sample in slot 8 and assign it to track 8; <code><span class="c-api">play</span> <span class="c-num">8</span></code> plays it. To put the fill on the snare track itself, <code><span class="c-api">play</span> <span class="c-num">4</span></code>.</p>
+<h2 id="17-live-sequencing-module">17. Live sequencing module</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">pulse_m</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">seq.mute</span> <span class="c-num">1</span> <span class="c-num">0</span>:
+      <span class="c-api">nx.smp</span> <span class="c-api">rrand</span> <span class="c-num">1</span> <span class="c-num">4</span>
+      <span class="c-api">nx.pl</span> <span class="c-api">fx1</span> <span class="c-num">1</span> <span class="c-api">rrand</span> <span class="c-num">40</span> <span class="c-num">110</span>
+      <span class="c-api">play</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-user">N</span>:</code> registers a live sequencer module executed every N ticks (24 ticks = 1 quarter note). On each clock tick, the module can query sequencer status (<code><span class="c-api">seq.run</span></code>, <code><span class="c-api">seq.step</span> <span class="c-var">t</span></code>, <code><span class="c-api">seq.mute</span> <span class="c-var">t</span></code>), prepare per-hit locks for the next hit with <code><span class="c-api">nx.smp</span> <span class="c-user">n</span></code> (Static sample slot 1..128) and <code><span class="c-api">nx.pl</span> <span class="c-user">p</span> <span class="c-user">v</span></code> (parameter <code><span class="c-user">p</span></code> in 0..29, clamped by the part's descriptor like <code><span class="c-api">pl.set</span></code>), and schedule track playback with <code><span class="c-api">play</span> <span class="c-var">t</span></code> (which consumes and resets the <code><span class="c-user">nx</span>.*</code> locks). In v1, the first trigger right after PLAY may be delayed by up to one timer period (~10 ms); all subsequent triggers fall on the step grid. While a menu script is running or awaiting user input (<code><span class="c-user">ask</span></code>, <code><span class="c-kw">confirm</span></code>), modules are silent; their deadlines are skipped and counted, and they resume on the grid afterwards.</p>
+<h2 id="18-pads-from-a-midi-controller">18. Pads from a MIDI controller</h2>
+<p>A controller on MIDI channel 1 plays tracks 1..8 from notes 60..67, at the note's velocity: note 60 plays track 1, note 67 track 8.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">pad_play</span>
+  <span class="c-kw">in</span> <span class="c-user">note</span> <span class="c-num">1</span>:
+    <span class="c-var">a</span> <span class="c-api">sub</span> <span class="c-api">note.num</span> <span class="c-num">59</span>
+    <span class="c-kw">if</span> <span class="c-api">and</span> <span class="c-api">gt</span> <span class="c-var">a</span> <span class="c-num">0</span> <span class="c-api">lt</span> <span class="c-var">a</span> <span class="c-num">9</span>:
+      <span class="c-kw">trk</span> <span class="c-var">a</span>:
+        <span class="c-api">trk.level</span> <span class="c-api">note.vel</span>
+        <span class="c-api">play</span> <span class="c-var">a</span></code></pre></figure>
+<p><code><span class="c-kw">in</span> <span class="c-user">note</span> <span class="c-num">1</span>:</code> wakes on each note; <code><span class="c-var">a</span></code> is the track; <code><span class="c-api">trk.level</span></code> makes the track as loud as the note. <code><span class="c-api">note.vel</span></code> is the velocity of the note that woke the block; <code><span class="c-api">midi.vel</span> <span class="c-num">1</span></code> keeps the same number after the block, and <code><span class="c-api">midi.note</span> <span class="c-num">1</span></code> the note. Track level is 0..127, the same range as the velocity, so the number is used as it comes. Notes outside 60..67 are ignored: the <code><span class="c-kw">if</span></code> keeps <code><span class="c-api">play</span></code> in range.</p>
+<h2 id="19-a-filter-and-a-density-knob-from-two-ccs">19. A filter and a density knob from two CCs</h2>
+<p>Two knobs on another box shape a live line: CC 74 on channel 1 sets FX1's first parameter (the filter cutoff on a default part), CC 71 sets how often the track plays.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">cc_shape</span>
+  <span class="c-kw">var</span> <span class="c-user">dens</span> <span class="c-num">40</span>
+  <span class="c-kw">param</span> <span class="c-user">cut</span> <span class="c-num">64</span> <span class="c-num">0</span> <span class="c-num">127</span> <span class="c-user">cc</span> <span class="c-num">1</span> <span class="c-num">74</span>
+  <span class="c-kw">in</span> <span class="c-user">cc</span> <span class="c-num">1</span> <span class="c-num">71</span>:
+    <span class="c-user">dens</span> <span class="c-api">lim</span> <span class="c-api">cc.val</span> <span class="c-num">0</span> <span class="c-num">100</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:
+    <span class="c-api">par.set</span> <span class="c-api">fx1</span> <span class="c-num">1</span> <span class="c-user">cut</span>
+    <span class="c-kw">prob</span> <span class="c-user">dens</span>: <span class="c-api">play</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-kw">param</span> … <span class="c-user">cc</span> <span class="c-user">ch</span> <span class="c-user">n</span></code> binds a parameter to a controller and the engine keeps it up to date; <code><span class="c-kw">in</span> <span class="c-user">cc</span> <span class="c-user">ch</span> <span class="c-user">n</span>:</code> reads a controller value in the script. The filter is written to the part (<code><span class="c-api">par.set</span></code>), not locked on a step, so it affects the whole track; the density is a <code><span class="c-kw">var</span></code> set by the CC and read by <code><span class="c-kw">prob</span></code>. The parameter page shows the binding (<code><span class="c-user">CUT</span> <span class="c-num">64</span> <span class="c-user">CC74</span></code>) but does not refresh when the CC moves: the value the script reads is current. On a part where FX1 is not a filter, <code><span class="c-api">fx1</span> <span class="c-num">1</span></code> is still the first parameter of FX1.</p>
+<h2 id="20-mirror-an-external-controller">20. Mirror an external controller</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">cc_cut</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LOCKS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;CC CUT&quot;</span>
+  <span class="c-api">pl.set</span> <span class="c-num">1</span> <span class="c-api">amp.vol</span> <span class="c-api">midi.cc</span> <span class="c-num">1</span> <span class="c-num">74</span>
+
+<span class="c-kw">def</span> <span class="c-user">n2trk</span>
+  <span class="c-kw">in</span> <span class="c-user">note</span> <span class="c-num">1</span>:
+    <span class="c-var">a</span> <span class="c-api">sub</span> <span class="c-api">midi.note</span> <span class="c-num">1</span> <span class="c-num">59</span>
+    <span class="c-kw">if</span> <span class="c-api">and</span> <span class="c-api">gt</span> <span class="c-var">a</span> <span class="c-num">0</span> <span class="c-api">lt</span> <span class="c-var">a</span> <span class="c-num">9</span>: <span class="c-api">play</span> <span class="c-var">a</span></code></pre></figure>
+<p><code><span class="c-api">midi.cc</span> <span class="c-user">ch</span> <span class="c-user">n</span></code>, <code><span class="c-api">midi.note</span> <span class="c-user">ch</span></code> and <code><span class="c-api">midi.vel</span> <span class="c-user">ch</span></code> read what the last MIDI message received on a channel left behind, so a knob on another box can drive a p-lock: CC CUT locks the first trig's volume to the knob's current value. <code><span class="c-user">n2trk</span></code> plays the track the last note names. <code><span class="c-api">send.nrpn</span> <span class="c-user">ch</span> <span class="c-user">p</span> <span class="c-user">v</span></code> is the output side: one NRPN as its four Control Changes, all four or none if the transmit buffer is short.</p>
+<h2 id="21-a-generative-line-for-an-external-synth">21. A generative line for an external synth</h2>
+<p><code><span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:</code> runs every sixteenth; each run sends a note to channel 5 with 60 % probability, walking up a twelve-note ladder, and a filter CC every two beats. The external synth makes the sound; the Octatrack is the sequencer.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">genline</span>
+  <span class="c-kw">var</span> <span class="c-user">n</span> <span class="c-num">0</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:
+    <span class="c-user">n</span> <span class="c-api">add</span> <span class="c-user">n</span> <span class="c-num">1</span>
+    <span class="c-kw">prob</span> <span class="c-num">60</span>:
+      <span class="c-api">send.note</span> <span class="c-num">5</span> <span class="c-api">add</span> <span class="c-num">36</span> <span class="c-api">mod</span> <span class="c-user">n</span> <span class="c-num">12</span> <span class="c-num">100</span> <span class="c-num">24</span>
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-user">n</span> <span class="c-num">8</span> <span class="c-num">0</span>:
+      <span class="c-api">send.cc</span> <span class="c-num">5</span> <span class="c-num">74</span> <span class="c-api">mul</span> <span class="c-api">mod</span> <span class="c-user">n</span> <span class="c-num">16</span> <span class="c-num">8</span></code></pre></figure>
+<p><code><span class="c-api">send.note</span> <span class="c-user">ch</span> <span class="c-user">n</span> <span class="c-user">vel</span> <span class="c-user">dur</span></code> schedules the note-off <code><span class="c-user">dur</span></code> ticks later (24 = one sixteenth here). A note already playing on the same channel and note number is cut before the new one. <code><span class="c-api">send.cc</span></code> and <code><span class="c-api">send.prog</span></code> are the other two; <code><span class="c-api">send.nrpn</span></code> sends a whole NRPN as its four CCs. Nothing is sent when the transmit buffer is full: the script never blocks.</p>
+<h2 id="22-record-a-loop-on-the-trigs">22. Record a loop on the trigs</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">rec_bar</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;REC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;LOOP 4&quot;</span>
+  <span class="c-api">rec.src</span> <span class="c-num">1</span> <span class="c-num">1</span> <span class="c-num">2</span>
+  <span class="c-api">rec.len</span> <span class="c-num">1</span> <span class="c-num">4</span>
+  <span class="c-api">rt.add</span> <span class="c-num">1</span></code></pre></figure>
+<p>Places a recorder trig on step 1 of the track in context, listening to input A (INAB = 2 on track 1) for four steps (RLEN 4): at 120 BPM the recorder writes exactly 22 050 samples and stops. <code><span class="c-api">rt.add</span> <span class="c-user">s</span> <span class="c-user">src</span></code> with the mask 1 (AB), 2 (CD), 4 (internal) and 7 for all three, as the stock trig does; <code><span class="c-api">rt.del</span> <span class="c-user">s</span></code> removes the recorder trig of a step (its sources, one-shot flag and micro-timing) and <code><span class="c-api">rt.clr</span></code> removes them all. <code><span class="c-api">rec.src</span> <span class="c-var">t</span> <span class="c-user">n</span> <span class="c-user">v</span></code> and <code><span class="c-api">rec.len</span> <span class="c-var">t</span> <span class="c-user">v</span></code> are the RECORDING SETUP values of a track, stored in the part like the page's own knobs.</p>
+<h2 id="23-one-take-then-the-next-script-arms-it-again">23. One take, then the next script arms it again</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">one_take</span>
+  <span class="c-api">ro.add</span> <span class="c-num">1</span>
+  <span class="c-api">rec.trig</span> <span class="c-num">1</span> <span class="c-num">0</span>
+  <span class="c-api">rec.loop</span> <span class="c-num">1</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-api">ro.add</span> <span class="c-user">s</span> [<span class="c-user">src</span>]</code> is a recorder trig with the one-shot state: it records once, and the next time the pattern reaches the step it stays silent, as a one-shot sample trig does. <code><span class="c-api">rec.trig</span> <span class="c-var">t</span> <span class="c-user">v</span></code> picks ONE (0), ONE-2 (1) or HOLD (2) and <code><span class="c-api">rec.loop</span> <span class="c-var">t</span> <span class="c-user">v</span></code> whether the take loops when played back. To take another one, re-arm with <code><span class="c-api">os.arm</span></code> (all one-shot trigs of the track) — that is what [STOP]+[STOP] does for the whole pattern. <code><span class="c-api">rec.arm</span> <span class="c-var">t</span> [<span class="c-user">src</span>]</code> starts a recording without waiting for a trig: it is the panel's [TRACK]+[AUDIO REC], QREC included.</p>
+<h2 id="24-resample-the-loop">24. Resample the loop</h2>
+<p>The recording can start from a script, not from a key: <code><span class="c-api">rec.arm</span> <span class="c-var">t</span> [<span class="c-user">src</span>]</code> is [TRACK]+[AUDIO REC]. <code><span class="c-api">rec.src</span></code> picks where the track's recorder listens, <code><span class="c-api">rec.len</span></code> how much it takes. Here the bar is captured from MAIN every time track 1's first step plays; the second function arms on any note on channel 1.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">grab_bar</span>
+  <span class="c-kw">in</span> <span class="c-user">trig</span> <span class="c-num">1</span> <span class="c-kw">all</span>:
+    <span class="c-kw">if</span> <span class="c-api">and</span> <span class="c-api">eq</span> <span class="c-api">trig.hit</span> <span class="c-num">1</span> <span class="c-api">eq</span> <span class="c-api">trig.step</span> <span class="c-num">1</span>:
+      <span class="c-api">rec.src</span> <span class="c-num">1</span> <span class="c-num">3</span> <span class="c-num">9</span>
+      <span class="c-api">rec.len</span> <span class="c-num">1</span> <span class="c-num">16</span>
+      <span class="c-api">rec.arm</span> <span class="c-num">1</span> <span class="c-num">4</span>
+
+<span class="c-kw">def</span> <span class="c-user">grabnote</span>
+  <span class="c-kw">in</span> <span class="c-user">note</span> <span class="c-num">1</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-api">note.vel</span> <span class="c-num">0</span>:
+      <span class="c-api">rec.src</span> <span class="c-num">1</span> <span class="c-num">3</span> <span class="c-num">9</span>
+      <span class="c-api">rec.len</span> <span class="c-num">1</span> <span class="c-num">16</span>
+      <span class="c-api">rec.arm</span> <span class="c-num">1</span> <span class="c-num">4</span></code></pre></figure>
+<ul><li><code><span class="c-api">rec.src</span> <span class="c-num">1</span> <span class="c-num">3</span> <span class="c-num">9</span></code>: source 3 of track 1 is SRC3, set to MAIN. <code><span class="c-api">rec.len</span> <span class="c-num">1</span> <span class="c-num">16</span></code> is one bar of 16 steps; <code><span class="c-api">rec.arm</span> <span class="c-num">1</span> <span class="c-num">4</span></code> starts it from SRC3 only. The source mask adds 1 (AB), 2 (CD) and 4 (SRC3).</li><li>QREC still applies: with a quantisation set in RECORDING SETUP, the take starts on the next quantum, not on the tick that armed it. The recorder runs for RLEN, so the buffer always holds the last bar captured; save that take as a WAV with recipe 26 (<code><span class="c-api">src.save</span></code>) and load the WAV into a Flex slot to play it back.</li><li>The take overwrites the track's recorder buffer: use a track whose recorder you are not using, and a project you can reload.</li></ul>
+<h2 id="25-an-acid-line-wired">25. An acid line, wired</h2>
+<p>Two live scripts, wired by name. <code><span class="c-user">acid</span></code> runs every sixteenth, sends a gate on output 1 every quarter note and publishes a cutoff value on its output 1. <code><span class="c-user">follow</span></code> wakes on that gate, reads the value with <code><span class="c-api">cv</span> <span class="c-user">acid</span> <span class="c-num">1</span></code> and sets FX1's cutoff on track 2 before it plays: a 303 line where the filter follows the master.</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">acid</span>
+  <span class="c-kw">var</span> <span class="c-user">n</span> <span class="c-num">0</span>
+  <span class="c-kw">in</span> <span class="c-user">clock</span> <span class="c-num">24</span>:
+    <span class="c-user">n</span> <span class="c-api">add</span> <span class="c-user">n</span> <span class="c-num">1</span>
+    <span class="c-kw">if</span> <span class="c-api">eq</span> <span class="c-api">mod</span> <span class="c-user">n</span> <span class="c-num">4</span> <span class="c-num">1</span>: <span class="c-api">gate</span> <span class="c-num">1</span>
+    <span class="c-api">out</span> <span class="c-num">1</span> <span class="c-api">add</span> <span class="c-num">40</span> <span class="c-api">rnd</span> <span class="c-num">60</span>
+
+<span class="c-kw">def</span> <span class="c-user">follow</span>
+  <span class="c-kw">in</span> <span class="c-api">gate</span> <span class="c-user">acid</span> <span class="c-num">1</span>:
+    <span class="c-kw">trk</span> <span class="c-num">2</span>:
+      <span class="c-api">par.set</span> <span class="c-api">fx1</span> <span class="c-num">1</span> <span class="c-api">add</span> <span class="c-num">40</span> <span class="c-api">cv</span> <span class="c-user">acid</span> <span class="c-num">1</span>
+      <span class="c-api">play</span> <span class="c-num">2</span></code></pre></figure>
+<p><code><span class="c-api">cv</span> <span class="c-user">acid</span> <span class="c-num">1</span></code> is 0 when <code><span class="c-user">acid</span></code> is not running: the follower then plays with the base value, 40. The cascade is same-tick: <code><span class="c-user">follow</span></code>'s <code><span class="c-api">play</span> <span class="c-num">2</span></code> lands on the master's tick. <code><span class="c-api">gate</span></code> and <code><span class="c-api">out</span></code> only exist in live scripts; a name in <code><span class="c-kw">in</span> <span class="c-api">gate</span></code> / <code><span class="c-api">cv</span></code> is the function's name, up to 8 characters.</p>
+<h2 id="26-save-an-audio-take-and-load-it-into-a-flex-slot">26. Save an audio take and load it into a Flex slot</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">bounce_take</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;BOUNCE&quot;</span>
+  <span class="c-kw">input</span> <span class="c-user">sample</span>
+  <span class="c-api">src.save</span>
+  <span class="c-api">flex.load</span> <span class="c-num">1</span> <span class="c-api">file.at</span> <span class="c-num">1</span>
+  <span class="c-api">msg</span> <span class="c-str">&quot;SAVED TAKE&quot;</span></code></pre></figure>
+<p><code><span class="c-kw">input</span> <span class="c-user">sample</span></code> declares that the function operates on the active audio sample context (recording buffer or audio editor). <code><span class="c-api">src.save</span></code> commits the take to durable storage on the card; upon return, <code><span class="c-api">file.at</span> <span class="c-num">1</span></code> holds the newly written WAV file path. <code><span class="c-api">flex.load</span> <span class="c-num">1</span> <span class="c-api">file.at</span> <span class="c-num">1</span></code> assigns the new recording to Flex slot 1.</p>
+<p>To keep every take, use the first free Flex slot:</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">bounce_free</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;BOUNCE FREE&quot;</span>
+  <span class="c-kw">input</span> <span class="c-user">sample</span>
+  <span class="c-api">src.save</span>
+  <span class="c-var">a</span> <span class="c-api">flex.firstfree</span>
+  <span class="c-kw">if</span> <span class="c-api">nz</span> <span class="c-var">a</span>:
+    <span class="c-api">flex.load</span> <span class="c-var">a</span> <span class="c-api">file.at</span> <span class="c-num">1</span>
+    <span class="c-api">msg</span> <span class="c-str">&quot;SLOT&quot;</span> <span class="c-var">a</span></code></pre></figure>
+<p>Clearing all Flex slots is the same loop as for Static:</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">flex_clear</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FLEX CLEAR&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;CLEAR ALL FLEX SLOTS?&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">128</span>:
+    <span class="c-api">flex.del</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">flex.firstfree</span></code> is the number of the first free Flex slot (0 if all 128 are used), the Flex twin of <code><span class="c-api">static.firstfree</span></code>. <code><span class="c-api">flex.del</span> <span class="c-user">n</span></code> empties Flex slot <code><span class="c-user">n</span></code> and gives its memory back, the Flex twin of <code><span class="c-api">static.clr</span></code>; an empty slot is left alone. Like <code><span class="c-api">flex.load</span></code> over a used slot, it is refused with STOP FIRST while the sequencer plays. The eight recorder buffers are not Flex slots: <code><span class="c-api">flex.firstfree</span></code> never counts them and <code><span class="c-api">flex.del</span></code> cannot empty them (both experimental).</p>
+<h2 id="27-build-a-sliced-sample-chain-from-a-folder">27. Build a sliced sample chain from a folder</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">chain_folder</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;CHAIN&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span>
+  <span class="c-api">dir</span> <span class="c-user">src</span>
+  <span class="c-api">ext</span> <span class="c-user">wav</span>
+  <span class="c-api">cat.clr</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">i</span> <span class="c-api">file.len</span>: <span class="c-kw">break</span>
+    <span class="c-api">cat.add</span> <span class="c-api">file.at</span> <span class="c-var">i</span>
+  <span class="c-kw">if</span> <span class="c-api">nz</span> <span class="c-api">file.len</span>:
+    <span class="c-api">cat.save</span> <span class="c-str">&quot;CHAIN&quot;</span>
+    <span class="c-api">flex.load</span> <span class="c-num">1</span> <span class="c-api">file.at</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-api">cat.clr</span></code> clears the host's concatenation list (up to 64 files). <code><span class="c-api">cat.add</span></code> appends files from the current directory list. <code><span class="c-api">cat.save</span> <span class="c-str">&quot;NAME&quot;</span></code> stitches the concatenated files into a single WAV with automatic <code>.<span class="c-user">ot</span></code> slice markers per source file, saved in the context directory or <code>/<span class="c-user">AUDIO</span></code>. Upon success, <code><span class="c-api">file.at</span> <span class="c-num">1</span></code> points to the generated chain. (Experimental. A very large folder is slow to read on the unit itself, before the first file is processed: allow time.)</p>
+<h2 id="28-batch-normalize-samples">28. Batch normalize samples</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">norm_folder</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;AUDIO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;NORM -3DB&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span>
+  <span class="c-api">dir</span> <span class="c-user">src</span>
+  <span class="c-api">ext</span> <span class="c-user">wav</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">i</span> <span class="c-api">file.len</span>: <span class="c-kw">break</span>
+    <span class="c-api">norm</span> <span class="c-api">file.at</span> <span class="c-var">i</span> <span class="c-num">-3</span></code></pre></figure>
+<p><code><span class="c-api">norm</span> <span class="c-user">path</span> <span class="c-user">db</span></code> scans all frames of a WAV file on the card and calculates the gain needed to reach the target peak level (-12..0 dB), updating the <code>.<span class="c-user">ot</span></code> metadata in place without destructive audio rewrites. (Experimental. A very large folder is slow to read on the unit itself, before the first file is processed: allow time.)</p>
+<h2 id="29-an-effect-and-an-lfo-set-in-the-part">29. An effect and an LFO, set in the part</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">wobble</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;SOUND&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;WOBBLE&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">depth</span> <span class="c-num">90</span> <span class="c-num">0</span> <span class="c-num">127</span>
+  <span class="c-api">fx.type</span> <span class="c-num">1</span> <span class="c-num">1</span>
+  <span class="c-api">lfo.dest</span> <span class="c-num">1</span> <span class="c-api">fx1</span> <span class="c-num">1</span>
+  <span class="c-api">par.set</span> <span class="c-api">lfo.spd</span> <span class="c-num">1</span> <span class="c-api">rrand</span> <span class="c-num">16</span> <span class="c-num">48</span>
+  <span class="c-api">par.set</span> <span class="c-api">lfo.dep</span> <span class="c-num">1</span> <span class="c-user">depth</span></code></pre></figure>
+<p><code><span class="c-api">fx.type</span> <span class="c-var">x</span> <span class="c-var">y</span></code> picks entry <code><span class="c-var">y</span></code> of effect slot <code><span class="c-var">x</span></code>'s list (0 = none). <code><span class="c-api">lfo.dest</span> <span class="c-var">x</span> <span class="c-user">p</span></code> aims LFO <code><span class="c-var">x</span></code> at a parameter; <code><span class="c-api">par.set</span> <span class="c-user">p</span> <span class="c-user">v</span></code> writes a parameter of the current part (not a lock): the value the track plays wherever no lock says otherwise, clamped to its range. A part holds much more than this (the machines and their slots, every parameter page, the scenes); the recipe changes one effect and one LFO of the current track only. These changes survive a power cycle; RELOAD PART on the unit goes back to the saved part.</p>
+<h2 id="30-scenes-to-play-with-the-crossfader">30. Scenes to play with the crossfader</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">scenes_new</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;SCENES&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;NEW SCENES&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;REPLACE SCENES?&quot;</span>
+  <span class="c-api">scn.clr</span>
+  <span class="c-kw">l</span> <span class="c-num">2</span> <span class="c-num">16</span>:
+    <span class="c-kw">l</span> <span class="c-num">6</span> <span class="c-num">11</span>:
+      <span class="c-api">scn.set</span> <span class="c-var">j</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-api">par.min</span> <span class="c-var">i</span> <span class="c-api">par.max</span> <span class="c-var">i</span>
+    <span class="c-kw">l</span> <span class="c-num">18</span> <span class="c-num">29</span>:
+      <span class="c-api">scn.set</span> <span class="c-var">j</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-api">par.min</span> <span class="c-var">i</span> <span class="c-api">par.max</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">scn.clr</span></code> unlocks all 16 scenes; the loops put a random lock on every LFO and FX parameter (6..11 and 18..29) of scenes 2..16 (<code><span class="c-api">scn.set</span> <span class="c-user">scene</span> <span class="c-kw">param</span> <span class="c-user">value</span></code>; <code><span class="c-var">j</span></code> is the scene, <code><span class="c-var">i</span></code> the parameter). Put scene 1 on A, any other on B, and move the crossfader. <code><span class="c-api">par.min</span> <span class="c-user">p</span></code> and <code><span class="c-api">par.max</span> <span class="c-user">p</span></code> are the bounds of parameter <code><span class="c-user">p</span></code> on the current track, so the draw stays inside what the parameter accepts; a parameter the part disables is refused (and counted) by all three operations.</p>
+<h2 id="31-show-where-patgo-landed">31. Show where <code><span class="c-api">pat.go</span></code> landed</h2>
+<p>After a run the menu says <code><span class="c-user">DONE</span></code>. <code><span class="c-api">msg</span></code> replaces it with your own text, so you can see which pattern or bank a script chose:</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">go_rnd_pat</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;BASICS&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;RND PATTERN&quot;</span>
+  <span class="c-var">a</span> <span class="c-api">add</span> <span class="c-api">rnd</span> <span class="c-num">16</span> <span class="c-num">1</span>
+  <span class="c-var">b</span> <span class="c-api">bank.cur</span>
+  <span class="c-api">pat.go</span> <span class="c-var">a</span> <span class="c-var">b</span>
+  <span class="c-api">msg</span> <span class="c-str">&quot;BANK&quot;</span> <span class="c-var">b</span> <span class="c-str">&quot;PAT&quot;</span> <span class="c-var">a</span></code></pre></figure>
+<p>The end message reads <code><span class="c-user">BANK</span> <span class="c-num">2</span> <span class="c-user">PAT</span> <span class="c-num">7</span></code> (a number, a space, the next item; the last <code><span class="c-api">msg</span></code> of the run wins). **Show the variables you gave to <code><span class="c-api">pat.go</span></code>, not <code><span class="c-api">pat.cur</span></code> / <code><span class="c-api">bank.cur</span></code> read afterwards:** when the sequencer is playing, the Octatrack queues a pattern change until the end of the current pattern (the stock call <code><span class="c-api">pat.go</span></code> uses does that itself), so <code><span class="c-api">pat.cur</span></code> right after <code><span class="c-api">pat.go</span></code> can still say the old pattern, while the simulator already answers the target. The variables are right in both cases. A text is at most 29 characters in the worst case, a number counting as 6 (<code><span class="c-num">-32768</span></code>): <code><span class="c-api">msg</span> <span class="c-str">&quot;TEMPO&quot;</span> <span class="c-api">tempo</span></code> is fine, a long sentence is refused when the script loads.</p>
+<h2 id="32-copy-a-pattern-from-a-script">32. Copy a pattern from a script</h2>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">keep_it</span>
+  <span class="c-api">pat.copy</span> <span class="c-num">1</span> <span class="c-num">2</span></code></pre></figure>
+<p><code><span class="c-api">pat.copy</span> <span class="c-var">a</span> <span class="c-var">b</span></code> is [FUNCTION]+[STOP] without the clipboard: pattern a lands on pattern b of the current bank, trigs, locks, length and the part assigned together, in the bank and in the pattern's SRAM copy. The stock's undo snapshot is taken first, so <code><span class="c-user">UNDO</span> <span class="c-user">PATTERN</span></code> can bring the old b back; a copy waiting in the pattern clipboard is left alone. It is a menu script: a live script is refused (<code><span class="c-user">op</span> <span class="c-api">pat.copy</span> <span class="c-api">not</span> <span class="c-user">allowed</span> <span class="c-kw">in</span> <span class="c-var">a</span> <span class="c-user">live</span> <span class="c-user">script</span></code>), and the run stops if <code><span class="c-var">a</span></code> is <code><span class="c-var">b</span></code>.</p>
+<h2 id="33-bulk-jobs-on-the-static-slots-scenes-lfos-and-effects-as-loops">33. Bulk jobs on the Static slots, scenes, LFOs and effects, as loops</h2>
+<p>OType has no one-shot helper for these: a few lines of loop do each, and you can change them. Each recipe below stands alone.</p>
+<h3 id="fill-the-static-slots">Fill the Static slots</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">static_fill</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;STATIC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;FILL&quot;</span>
+  <span class="c-kw">param</span> <span class="c-user">src</span> <span class="c-user">folder</span> <span class="c-str">&quot;AUDIO&quot;</span>
+  <span class="c-api">dir</span> <span class="c-user">src</span> <span class="c-kw">deep</span>
+  <span class="c-api">ext</span> <span class="c-user">wav</span> <span class="c-user">aif</span> <span class="c-user">aiff</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">128</span>:
+    <span class="c-kw">if</span> <span class="c-api">gt</span> <span class="c-var">i</span> <span class="c-api">file.len</span>: <span class="c-kw">break</span>
+    <span class="c-var">a</span> <span class="c-api">static.firstfree</span>
+    <span class="c-kw">if</span> <span class="c-api">ez</span> <span class="c-var">a</span>: <span class="c-kw">break</span>
+    <span class="c-api">static.load</span> <span class="c-var">a</span> <span class="c-api">file.at</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">file.at</span> <span class="c-var">i</span></code> is the i-th file of the list in its sorted order: the free slots take the files in order. A file the unit refuses leaves its slot free, and the next file is offered to it.</p>
+<h3 id="fill-the-static-slots-at-random">Fill the Static slots at random</h3>
+<p>Recipe 11: <code><span class="c-api">file.pick</span></code> instead of <code><span class="c-api">file.at</span> <span class="c-var">i</span></code>.</p>
+<h3 id="shuffle-the-static-slots">Shuffle the Static slots</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">static_shuffle</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;STATIC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;SHUFFLE&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">128</span>:
+    <span class="c-kw">if</span> <span class="c-api">static.free</span> <span class="c-var">i</span>: <span class="c-kw">break</span>
+    <span class="c-api">static.swap</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-num">1</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">static.swap</span> <span class="c-var">a</span> <span class="c-var">b</span></code> trades the samples of two Static slots: each is reloaded by name from the other, an empty slot takes the sample and leaves its partner empty, and <code><span class="c-var">a</span></code> = <code><span class="c-var">b</span></code> does nothing. The loop is a Fisher-Yates shuffle: slot <code><span class="c-var">i</span></code> swaps with a random slot from 1 to <code><span class="c-var">i</span></code>. It stops at the first free slot, so it shuffles the run of used slots from slot 1 (what the fill recipes leave) and leaves the rest alone. A sample the unit refuses to reload empties its slot, as <code><span class="c-api">static.load</span></code> does.</p>
+<p>To shuffle every slot, holes included, run the same shuffle over the 128 slots:</p>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">static_shuf_all</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;STATIC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;SHUFFLE ALL&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">2</span> <span class="c-num">128</span>: <span class="c-api">static.swap</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-num">1</span> <span class="c-var">i</span></code></pre></figure>
+<p>Every sample can now land anywhere, including in a slot that was empty, and an empty slot can take the place of a used one. Use the first recipe to keep the holes where they are, this one when the slots are not filled from slot 1.</p>
+<h3 id="clear-all-static-slots">Clear all Static slots</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">static_clear</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;STATIC&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;CLEAR&quot;</span>
+  <span class="c-kw">confirm</span> <span class="c-str">&quot;CLEAR ALL STATIC SLOTS?&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">128</span>:
+    <span class="c-api">static.clr</span> <span class="c-var">i</span></code></pre></figure>
+<h3 id="random-scenes">Random scenes</h3>
+<p>Recipe 30.</p>
+<h3 id="random-lfos">Random LFOs</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">lfos_random</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LFO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;RANDOM LFOS&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">6</span> <span class="c-num">11</span>:
+    <span class="c-api">par.set</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-api">par.min</span> <span class="c-var">i</span> <span class="c-api">par.max</span> <span class="c-var">i</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">3</span>:
+    <span class="c-api">lfo.dest</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-num">18</span> <span class="c-num">29</span>
+    <span class="c-api">lfo.wave</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-num">0</span> <span class="c-num">6</span></code></pre></figure>
+<p>Parameters 6..11 are the speeds and depths of the three LFOs (<code><span class="c-api">lfo.spd</span> <span class="c-user">n</span></code>, <code><span class="c-api">lfo.dep</span> <span class="c-user">n</span></code>); <code><span class="c-api">lfo.dest</span> <span class="c-var">x</span> <span class="c-user">p</span></code> aims LFO <code><span class="c-var">x</span></code> at one of the effect parameters (18..29) and <code><span class="c-api">lfo.wave</span> <span class="c-var">x</span> <span class="c-user">w</span></code> picks its waveform (0..6 on a stock unit). <code><span class="c-api">par.min</span> <span class="c-user">p</span></code> and <code><span class="c-api">par.max</span> <span class="c-user">p</span></code> give the bounds of parameter <code><span class="c-user">p</span></code>, so the draw covers its whole range; <code><span class="c-api">par.set</span></code> clamps the value to it anyway.</p>
+<h3 id="random-effects">Random effects</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">fx_random</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;FX&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;RANDOM FX&quot;</span>
+  <span class="c-api">fx.type</span> <span class="c-num">1</span> <span class="c-api">rrand</span> <span class="c-num">1</span> <span class="c-api">sub</span> <span class="c-api">fx.count</span> <span class="c-num">1</span> <span class="c-num">1</span>
+  <span class="c-api">fx.type</span> <span class="c-num">2</span> <span class="c-api">rrand</span> <span class="c-num">1</span> <span class="c-api">sub</span> <span class="c-api">fx.count</span> <span class="c-num">2</span> <span class="c-num">1</span></code></pre></figure>
+<p><code><span class="c-api">fx.type</span> <span class="c-var">x</span> <span class="c-var">y</span></code> picks entry <code><span class="c-var">y</span></code> of effect slot <code><span class="c-var">x</span></code>'s list; 0 is NONE, so the draw starts at 1. <code><span class="c-api">fx.count</span> <span class="c-var">x</span></code> is the number of entries of that list, NONE included: the last entry is <code><span class="c-api">fx.count</span> <span class="c-var">x</span></code> minus 1, whatever the firmware (the FX2 list changes with a remixed firmware). A list that holds NONE alone makes the draw 0 or 1; 1 is out of range and counted, 0 leaves the effect off.</p>
+<h3 id="random-lfo-designer">Random LFO designer</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">lfod_random</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LFO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;RND DESIGNER&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:
+    <span class="c-api">lfod.set</span> <span class="c-var">i</span> <span class="c-api">rrand</span> <span class="c-num">-64</span> <span class="c-num">63</span></code></pre></figure>
+<h3 id="invert-the-lfo-designer">Invert the LFO designer</h3>
+<figure class="listing"><pre><code><span class="c-kw">def</span> <span class="c-user">lfod_invert</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LFO&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;INV DESIGNER&quot;</span>
+  <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>:
+    <span class="c-api">lfod.set</span> <span class="c-var">i</span> <span class="c-api">sub</span> <span class="c-num">0</span> <span class="c-api">lfod.get</span> <span class="c-var">i</span></code></pre></figure>
+<p><code><span class="c-api">lfod.set</span></code> clamps to -64..63, so an inverted -64 becomes 63.</p>
+<h2 id="limits-worth-knowing">Limits worth knowing</h2>
+<ul><li>4096 operations per press (the checker prints each function's worst case); 4096 file names per list.</li><li>Up to 8 parameters per function in a menu, 6 on a page.</li><li>A function that fails to load is refused alone: the rest of the file loads, and <code>/<span class="c-user">SCRIPTS</span>/<span class="c-api">ERRORS.TXT</span></code> says why, with the line.</li></ul>
+<h2 id="integrating-the-engine-for-firmware-authors">Integrating the engine (for firmware authors)</h2>
+<p>OType is shared with other custom firmware authors as sources: build it, link it where your firmware wants it, make the stock OS enter it at one place, and give it your own interface. The full contract is <code><span class="c-user">firmware</span>/<span class="c-api">README.md</span></code>; these are the steps in practice.</p>
+<h3 id="i1-build-and-link-at-your-addresses">I1. Build and link at your addresses</h3>
+<pre class="sh"><code>cd firmware
+python3 build/layout.py                                        # the block you must reserve: 2,187,688 B, align 16
+python3 build/build.py --base CODE_ADDRESS --region REGION_ADDRESS  # replace with your addresses</code></pre>
+<p><code><span class="c-user">build</span>/<span class="c-api">out</span>/<span class="c-api">otype.bin</span></code> is the code (not position-independent: link again for another address). Its exact size and SHA256 are recorded in <code><span class="c-user">build</span>/<span class="c-api">out</span>/<span class="c-api">otype.json</span></code> after each link. <code><span class="c-user">build</span>/<span class="c-api">out</span>/<span class="c-api">otype.json</span></code> lists what to write into the OS.</p>
+<h3 id="i2-write-the-entry-point">I2. Write the entry point</h3>
+<p>From your unpacked system image, check the site and write the bytes <code><span class="c-api">otype.json</span></code> gives. The bytes are the module's own <code><span class="c-user">jmp</span></code>, not Elektron's:</p>
+<pre class="plain"><code>import json
+d = json.load(open(&quot;build/out/otype.json&quot;))
+img = bytearray(open(&quot;system-image.bin&quot;, &quot;rb&quot;).read())
+for e in d[&quot;entry_points&quot;]:
+    off = int(e[&quot;site&quot;], 16) - image_base
+    w = bytes.fromhex(e[&quot;write&quot;])
+    # check first: the site must hold e[&quot;displaced&quot;] (disassemble it), or the image is not the expected one
+    img[off:off + len(w)] = w
+open(&quot;system-image-otype.bin&quot;, &quot;wb&quot;).write(img)</code></pre>
+<p>Before patching, disassemble the site with the load address and target CPU for your OS build. The instructions must match <code><span class="c-user">displaced</span></code> in <code><span class="c-api">otype.json</span></code>.</p>
+<h3 id="i3-put-the-code-in-memory">I3. Put the code in memory</h3>
+<p>Your boot loader copies <code><span class="c-api">otype.bin</span></code> to the <code>--<span class="c-user">base</span></code> address after stock startup initialisation and before your interface first calls it, then pushes and invalidates the caches. Reserve this code area against stock writes throughout startup, project loading and use. Appending the binary to an image alone is insufficient. The module sets itself up on first use.</p>
+<h3 id="i4-reserve-the-block">I4. Reserve the block</h3>
+<p>The block is the module's alone and may start uninitialised. The usual place is the top of the sample memory, made smaller by the same amount. To check that nothing of the stock writes there, fill the block with a pattern in an emulator, boot, load a project, play and record, and compare.</p>
+<h3 id="i5-check-it-on-the-unit">I5. Check it on the unit</h3>
+<ol><li>The unit behaves as stock until your interface calls the engine (menus, key combinations, projects).</li><li>Put recipes 1 and 11 in <code>/<span class="c-user">SCRIPTS</span>/</code> on the card. LOAD through your interface: <code><span class="c-user">ot_nloaded</span></code> counts the functions, and <code>/<span class="c-user">SCRIPTS</span>/<span class="c-api">ERRORS.TXT</span></code> appears.</li><li>Add a broken function to the file and LOAD again: only it is refused, <code><span class="c-api">ERRORS.TXT</span></code> names its line.</li><li>Run FOUR FLOOR, then power-cycle without saving: the trigs are still there, like a stock edit.</li></ol>
+<h3 id="i6-your-own-interface">I6. Your own interface</h3>
+<p>The engine ships no interface: a key, a menu, a page or a trig of your firmware calls it. List the scripts, ask what they need, run them (assembly, UI task):</p>
+<pre class="plain"><code>        clr.l   -(%sp)                      | cdecl, one argument (unused here)
+        jsr     otype_ot_load:l             | once: read /SCRIPTS, compile, load (writes ERRORS.TXT)
+        addq.l  #4,%sp
+        jsr     otype_prepare:l             | index the staged table before C metadata/parameter calls
+        ...                                | require d0 = 0; otherwise handle the load refusal
+        ...
+        move.l  #3,otr_mail+4:l             | function index in the loaded table
+        move.l  #1234,otr_mail+8:l          | seed (low 16 bits)
+        jsr     otype_run:l                 | runs on the current pattern and commits; d0 = 0: ok</code></pre>
+<p>After <code><span class="c-user">otype_prepare</span></code> succeeds, the parameters, the <code><span class="c-kw">confirm</span></code> text and the menu paths of each function are read from the loaded table with <code><span class="c-user">otc_vm_fn_param</span></code>, <code><span class="c-user">otc_vm_fn_confirm</span></code> and <code><span class="c-user">ot_ctx</span></code> (<code><span class="c-user">firmware</span>/<span class="c-api">README.md</span></code>, "Your own interface").</p>
+<p>To build a menu, read each function's category and name from <code><span class="c-user">ot_ctx</span></code>, group by category and sort as you like; <code><span class="c-kw">input</span> <span class="c-user">sample</span></code> is a flag of the function's entry (<code><span class="c-user">docs</span>/<span class="c-api">syntax.md</span></code>), so a recorder view can list only the functions that act on an audio take. Ask the parameters and the <code><span class="c-kw">confirm</span></code> YES/NO before the run, then show <code><span class="c-user">DONE</span></code> or the run's <code><span class="c-api">msg</span></code>.</p>
+<nav class="pager" aria-label="Pages"></nav>
+</article>
+</div>
+<footer>
+  <p>otype — scripting for the octatrack · every recipe on this page is checked by the OType test suite</p>
+  <p>syntax directly inspired by <a href="https://monome.org/docs/teletype/">monome teletype</a> · not affiliated with, endorsed or supported by elektron or monome</p>
+  <p>elektron and octatrack are trademarks of elektron music machines; monome and teletype belong to monome. the names are used only to say what this works with.</p>
+  <p><a href="./">command reference</a> · <a href="https://github.com/nordseele/otype">otype on github</a> · <a href="https://www.gnu.org/licenses/gpl-3.0.html">gpl-3.0</a> · © nordseele 2026</p>
+</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function current() { return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light'); }
+  function label() { var t = current(); btn.textContent = t === 'dark' ? 'light' : 'dark';
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); }
+  var saved = null; try { saved = localStorage.getItem('otype-theme'); } catch (e) {}
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  label();
+  if (mq.addEventListener) mq.addEventListener('change', label);
+  btn.addEventListener('click', function () {
+    var t = current() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', t); label();
+    try { localStorage.setItem('otype-theme', t); } catch (e) {}
+  });  var steps = Array.prototype.slice.call(document.querySelectorAll('.steps i')), at = 0;
+  var tempo = parseFloat(getComputedStyle(root).getPropertyValue('--tempo')) * 1000 || 150;
+  if (steps.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () { steps[at].classList.remove('on'); at = (at + 1) % steps.length; steps[at].classList.add('on'); }, tempo);
+  }
+})();
+
+if (matchMedia('(max-width: 860px)').matches) document.querySelector('.toc').removeAttribute('open');</script>
+</body>
+</html>
