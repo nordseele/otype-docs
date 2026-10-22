@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Every script so far was one function with a menu entry. A function can also be a word of your own, used by the others: write a Euclidean rhythm once, then call it on any track with any number of hits.">
+<meta name="theme-color" content="#1a1a1a">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="otype">
+<meta property="og:title" content="Functions · Learn OType">
+<meta property="og:description" content="Every script so far was one function with a menu entry. A function can also be a word of your own, used by the others: write a Euclidean rhythm once, then call it on any track with any number of hits.">
+<meta property="og:url" content="https://nordseele.github.io/otype-docs/learn/functions.html">
+<meta property="og:image" content="https://nordseele.github.io/otype-docs/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Functions · Learn OType</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap">
+<style>/* OType command reference — monochrome "OT screen" look. Inlined into the page by tools/cheatsheet.py.
+   Retune the look by editing ONLY the token blocks below (light, dark x2: the dark values appear twice,
+   once for "system is dark" and once for the toggle — keep the two identical). */
+:root {
+  --bg: #f4f4f2;        /* page background (and text inside inverted boxes) */
+  --text: #1a1a1a;      /* body text */
+  --strong: #000000;    /* strong ink: headings, keywords, numbers, inverted-box fill */
+  --muted: #6b6b6b;     /* secondary text: docs, strings, aliases */
+  --faint: #b0b0b0;     /* comments, step borders, heading and table rules */
+  --rule: #d0d0cc;      /* frames, separators between commands */
+  --font: "IBM Plex Mono", ui-monospace, Menlo, monospace;  /* the one font everywhere */
+  --code-bg: #eaedf0;   /* every piece of code: blocks and inline */
+  --code-fg: #1a1f26;
+  --hl-kw: #006f9c;     /* keywords: def menu l if trk steps … */
+  --hl-num: #7d6000;    /* numbers */
+  --hl-com: #007a4d;    /* comments */
+  --fs-body: 14px;      /* body text size */
+  --fs-code: 13px;      /* code blocks and signatures */
+  --fs-small: 11px;     /* status bar, chips, headings, soft keys */
+  --px-mark: clamp(6px, 2vw, 11px);  /* size of one pixel of the wordmark */
+  --lh-body: 1.6;       /* body line height */
+  --gutter: clamp(16px, 4vw, 56px);     /* side margins */
+  --pad-inv: 0 7px;     /* padding of an inverted box */
+  --pad-cond: 0 3px;    /* padding of a trig-condition box */
+  --track: 0.06em;      /* letter-spacing of inverted boxes */
+  --step: 9px;          /* size of one sequencer step */
+  --step-gap: 5px;      /* space between steps */
+  --tempo: 0.5s;        /* playhead: time per step (see the JS, 500 ms) */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0d0d; --text: #cfcfcf; --strong: #ffffff; --muted: #8c8c8c; --faint: #4d4d4d; --rule: #3a3a3a;
+    --code-bg: #1a2028; --code-fg: #e4e4e4; --hl-kw: #00aced; --hl-num: #e3bf3b; --hl-com: #00d181;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0d0d; --text: #cfcfcf; --strong: #ffffff; --muted: #8c8c8c; --faint: #4d4d4d; --rule: #3a3a3a;
+  --code-bg: #1a2028; --code-fg: #e4e4e4; --hl-kw: #00aced; --hl-num: #e3bf3b; --hl-com: #00d181;
+  color-scheme: dark;
+}
+
+/* ---- base ---- */
+* { box-sizing: border-box; border-radius: 0; box-shadow: none; text-shadow: none; }
+html, body { background: var(--bg); }
+body { margin: 0; color: var(--text); font: 300 var(--fs-body)/var(--lh-body) var(--font); -webkit-text-size-adjust: 100%; }
+::selection { background: var(--strong); color: var(--bg); }
+code, pre, input, button { font-family: var(--font); }
+code { font-weight: 300; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { background: var(--strong); color: var(--bg); text-decoration: none; }
+:focus-visible { outline: 1px solid var(--strong); outline-offset: 2px; }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--gutter); padding-block: 24px 72px; }
+
+/* inverted box: the signature */
+.inv, h2 .hb { background: var(--strong); color: var(--bg); font-weight: 600; padding: var(--pad-inv); letter-spacing: var(--track); }
+
+/* ---- status bar ---- */
+.bar { display: flex; flex-wrap: wrap; border: 1px solid var(--rule); font-size: var(--fs-small); letter-spacing: var(--track); line-height: 1; }
+.bar .cell { padding: 6px 10px; border-right: 1px solid var(--rule); white-space: nowrap; }
+.bar .cell:last-child { border-right: 0; }
+.bar .cell.first { background: var(--strong); color: var(--bg); font-weight: 600; border-right-color: var(--strong); }
+.bar .end { margin-left: auto; border-left: 1px solid var(--rule); }
+#theme { background: none; color: var(--text); border: 0; border-left: 1px solid var(--rule); font: 300 var(--fs-small)/1 var(--font);
+  letter-spacing: var(--track); padding: 6px 10px; cursor: pointer; }
+#theme:hover { background: var(--strong); color: var(--bg); }
+
+/* ---- title ---- */
+header.top { margin: 40px 0 0; }
+h1 { margin: 0; font: inherit; }
+h1 .mark { display: block; height: calc(var(--px-mark) * 10); width: auto; color: var(--strong); }
+.tag { margin: 14px 0 18px; color: var(--muted); font-size: var(--fs-body); }
+nav.site { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; }
+nav.site a { padding: 4px 9px; border: 1px solid var(--rule); text-decoration: none; line-height: 1.3; }
+nav.site a:hover, nav.site a[aria-current] { background: var(--strong); color: var(--bg); border-color: var(--strong); font-weight: 600; }
+.steps { display: flex; gap: var(--step-gap); padding: 3px; flex-wrap: wrap; }
+.steps i { display: block; width: var(--step); height: var(--step); border: 1px solid var(--faint); }
+.steps i.f { background: var(--muted); border-color: var(--muted); }
+.steps i.on { outline: 1px solid var(--strong); outline-offset: 2px; }
+
+/* ---- tools: filter and soft-key navigation ---- */
+.overview { margin: 36px 0 0; }
+.overview table { width: 100%; border-collapse: collapse; font-size: var(--fs-code); }
+.overview th, .overview td { text-align: left; vertical-align: top; padding: 7px 12px 7px 0; border-bottom: 1px solid var(--rule); }
+.overview thead { color: var(--muted); }
+.overview td:nth-child(2) { white-space: nowrap; }
+.tools { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: flex-start; margin: 32px 0 0; padding: 12px 0 20px; border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; z-index: 1; background: var(--bg); }  /* search and sections stay at hand while reading */
+#q { font: 300 var(--fs-body) var(--font); padding: 5px 10px; border: 1px solid var(--rule); background: transparent; color: var(--text);
+  width: min(320px, 100%); -webkit-appearance: none; appearance: none; }
+#q::placeholder { color: var(--faint); }
+#q:focus { border-color: var(--strong); outline: 0; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 320px; font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; }
+nav.jump a { display: block; padding: 4px 9px; border: 1px solid var(--rule); text-decoration: none; line-height: 1.3; }
+nav.jump a:hover, nav.jump a[aria-current] { background: var(--strong); color: var(--bg); border-color: var(--strong); font-weight: 600; }
+
+/* ---- headings ---- */
+h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: var(--fs-small); line-height: 1.5; text-transform: uppercase; font-weight: 600; }
+h2::after { content: ""; flex: 1; height: 1px; background: var(--faint); }
+h3 { margin: 22px 0 8px; font-size: var(--fs-small); font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* ---- intro ---- */
+.intro { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 40px 64px; margin: 44px 0 0; }
+.intro > * { min-width: 0; }
+.howto p { margin: 0 0 14px; max-width: 64ch; }
+.howto pre { margin: 14px 0 18px; }
+.letters { border-bottom: 1px solid var(--faint); }
+.letters div { display: grid; grid-template-columns: 5.5em 1fr; gap: 12px; padding: 5px 0; border-top: 1px solid var(--faint); }
+.letters code { font-weight: 600; color: var(--strong); }
+.letters span { color: var(--muted); }
+
+/* ---- examples ---- */
+.examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 40px 56px; margin: 56px 0 64px; }
+.ex { margin: 0; min-width: 0; padding-top: 12px; border-top: 1px solid var(--faint); }
+.ex figcaption { font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+pre { margin: 0; overflow-x: auto; font: 400 var(--fs-code)/1.7 var(--font); color: var(--text); }
+.ex pre, .howto pre { background: var(--code-bg); color: var(--code-fg); padding: 12px 16px; }
+.howto p code { background: var(--code-bg); color: var(--code-fg); padding: 1px 5px; }
+
+/* ---- reference sheet ---- */
+/* one category per band, its operators left to right: no climbing back up a column */
+.sheet, #none { margin-top: 32px; scroll-margin-top: var(--tools-h, 120px); }
+.cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); column-gap: 56px; margin-bottom: 44px;
+  scroll-margin-top: var(--tools-h, 120px); }
+.cat[hidden] { display: none; }
+.cat > h2, .cat > h3 { grid-column: 1 / -1; }
+.op { min-width: 0; padding: 8px 0 9px; border-top: 1px solid var(--rule); }
+.sig { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.sig code { font: 300 var(--fs-code) var(--font); color: var(--text); overflow-wrap: anywhere; }
+.sig code b { font-weight: 600; color: var(--strong); }
+.todo { font-size: 0.8em; font-weight: 400; color: var(--faint); margin-left: 5px; cursor: help; }
+.alias { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.doc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 3px; }
+.chip { display: inline-block; font: 400 10px/1.4 var(--font); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+  border: 1px solid var(--faint); padding: 0 5px; margin-left: 4px; }
+.chip.warn { background: var(--strong); color: var(--bg); border-color: var(--strong); font-weight: 600; }
+.op.hit { outline: 1px solid var(--strong); outline-offset: 5px; }
+.empty { color: var(--muted); font-style: italic; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12px; }
+footer p { max-width: 80ch; margin: 0 0 8px; }
+footer a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- syntax: three colours, one weight; everything else in the code colour ---- */
+.c-kw { color: var(--hl-kw); }    /* keywords: def menu l if prob each trk steps … */
+.c-num { color: var(--hl-num); }  /* numbers */
+.c-com { color: var(--hl-com); }  /* comments */
+.c-op { color: var(--muted); }    /* | and >> */
+
+@media (max-width: 760px) { .tools { position: static; } }  /* the section buttons would cover a phone screen */
+@media (max-width: 520px) {
+  .bar .cell { padding: 6px 8px; }
+  .wrap { padding-block: 16px 56px; }
+}
+
+.listing > pre { background: var(--code-bg); color: var(--code-fg); padding: 12px 16px; }
+article p code, article li code, article td code, article dt code { background: var(--code-bg); color: var(--code-fg); padding: 1px 5px; }
+.learn { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 32px 64px; margin-top: 36px; align-items: start; }
+.toc { position: sticky; top: 16px; font-size: 13px; }
+.toc summary { font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); cursor: pointer; margin-bottom: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); }
+.toc a { display: grid; grid-template-columns: 2.2em 1fr; padding: 6px 4px; text-decoration: none; }
+.toc a span { color: var(--faint); }
+.toc a[aria-current] { background: var(--strong); color: var(--bg); font-weight: 600; }
+.toc a[aria-current] span { color: var(--bg); }
+article { min-width: 0; max-width: 76ch; font-weight: 400; }
+article h1 { font-size: 24px; line-height: 1.3; font-weight: 700; color: var(--strong); margin: 0 0 6px; }
+article .kicker { font-weight: 500; font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+article h2 { display: block; margin: 48px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+  font-size: 18px; line-height: 1.35; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--strong); }
+article h2::after { content: none; }
+article h2 code { font-weight: 600; background: none; border: 0; padding: 0; color: inherit; }
+article p, article li { max-width: 72ch; }
+article p { margin: 0 0 14px; }
+article ul, article ol { padding-left: 1.3em; margin: 0 0 16px; }
+article li { margin-bottom: 6px; }
+article code { font-weight: 400; color: var(--code-fg); }
+article pre code { font-weight: 400; color: inherit; }
+article table { width: 100%; border-collapse: collapse; font-size: var(--fs-code); margin: 6px 0 20px; }
+article th, article td { text-align: left; vertical-align: top; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); }
+article thead { color: var(--muted); }
+article th { font-weight: 400; }
+.listing { margin: 20px 0 26px; }
+.listing figcaption { font-style: italic; font-size: var(--fs-small); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.listing figcaption b { color: var(--strong); font-weight: 600; font-style: normal; }
+.out { border: 1px solid var(--rule); margin-top: 12px; }
+.out summary { cursor: pointer; padding: 6px 16px; font-size: var(--fs-small); letter-spacing: var(--track); color: var(--muted); }
+.out summary:hover { color: var(--strong); }
+.out[open] summary { border-bottom: 1px dashed var(--rule); }
+.out pre { padding: 8px 16px 12px; }
+.out summary b { color: var(--strong); font-weight: 600; text-transform: uppercase; }
+.out pre { color: var(--text); }
+pre.sh, pre.plain { margin: 12px 0 18px; padding: 10px 12px; border: 1px solid var(--rule); }
+pre.sh code::before { content: "$ "; color: var(--faint); }
+.recap, .try { margin: 40px 0 0; }
+.recap dl { display: grid; grid-template-columns: minmax(8em, max-content) 1fr; gap: 0; margin: 0; font-size: 13px; }
+.recap dt, .recap dd { margin: 0; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); }
+.recap dd { color: var(--muted); font-style: italic; font-weight: 300; }
+.try li { color: var(--text); }
+.pager { display: flex; justify-content: space-between; gap: 16px; margin: 56px 0 0; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; }
+.pager a { text-decoration: none; padding: 6px 10px; border: 1px solid var(--rule); }
+.pager small { display: block; font-size: var(--fs-small); color: var(--muted); letter-spacing: var(--track); text-transform: uppercase; }
+.pager a:hover small { color: var(--bg); }
+.pager .next { margin-left: auto; text-align: right; }
+.next-step { margin-top: 32px; }
+@media (max-width: 860px) {
+  .learn { grid-template-columns: minmax(0, 1fr); }
+  .toc { position: static; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar"><span class="cell first">OTYPE</span><span class="cell">learn</span><span class="cell">1.1</span><span class="cell end">octatrack</span><button id="theme" class="cell" type="button">dark</button></div>
+<header class="top">
+  <h1 aria-label="otype"><a href="../" style="background:none"><svg class="mark" viewBox="0 0 29 10" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="7" y="0" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="6" y="2" width="4" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="18" y="2" width="4" height="1"/><rect x="25" y="2" width="3" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="7" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="5" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="7" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="28" y="6" width="1" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="8" y="7" width="2" height="1"/><rect x="13" y="7" width="4" height="1"/><rect x="18" y="7" width="4" height="1"/><rect x="25" y="7" width="3" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="13" y="9" width="3" height="1"/><rect x="18" y="9" width="1" height="1"/></svg></a></h1>
+  <p class="tag">scripting for the octatrack</p>
+  <nav class="site" aria-label="Site"><a href="../learn/" aria-current="page">learn</a><a href=".././">reference</a><a href="../roadmap.html">roadmap</a><a href="https://github.com/nordseele/otype/blob/main/docs/cookbook.md">cookbook</a><a href="https://github.com/nordseele/otype">github</a></nav>
+  <div class="steps" aria-hidden="true"><i class="f on"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i><i class="f"></i><i class=""></i><i class=""></i><i class=""></i></div>
+</header>
+<div class="learn">
+<details class="toc" open><summary>The studies</summary><ol><li><a href="./"><span></span>Learn OType</a></li><li><a href="quickstart.html"><span>01</span>Quickstart</a></li><li><a href="expressions.html"><span>02</span>Numbers and expressions</a></li><li><a href="decisions-and-loops.html"><span>03</span>Decisions and loops</a></li><li><a href="variables.html"><span>04</span>Variables and memory</a></li><li><a href="context.html"><span>05</span>Tracks and steps</a></li><li><a href="functions.html" aria-current=page><span>06</span>Functions</a></li><li><a href="the-player.html"><span>07</span>Asking the player</a></li><li><a href="randomness.html"><span>08</span>Chance you can repeat</a></li><li><a href="live-scripts.html"><span>09</span>Live scripts</a></li><li><a href="errors-and-limits.html"><span>10</span>When something is wrong</a></li><li><a href="scope.html"><span>11</span>Appendix: scope at a glance</a></li></ol></details>
+<article>
+<p class="kicker">study 06 of 10</p>
+<h1>Functions</h1>
+
+<p>Every script so far was one function with a menu entry. A function can also be a word of your own, used by the
+others: write a Euclidean rhythm once, then call it on any track with any number of hits. This study builds a
+small library of such words.</p>
+
+<h2>Bricks</h2>
+
+<p>A function without <code><span class="c-kw">menu</span></code> does not appear in the menu. We call it a <b>brick</b>: the other
+functions use it. Its arguments follow its name, after a <code><span class="c-op">|</span></code>:</p>
+
+<figure class="listing"><figcaption><b>Listing 6-1</b> · A brick, and a function that uses it twice</figcaption><pre><code><span class="c-kw">def</span> <span class="c-user">two_euclids</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LEARN&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;2 EUCLIDS&quot;</span>
+  <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-num">1</span> <span class="c-num">5</span> <span class="c-num">0</span>
+  <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-num">2</span> <span class="c-num">3</span> <span class="c-num">4</span>
+
+<span class="c-kw">def</span> <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-user">track</span> <span class="c-user">hits</span> <span class="c-user">rot</span>
+  <span class="c-kw">trk</span> <span class="c-user">track</span>:
+    <span class="c-api">tr.clr</span>
+    <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">if</span> <span class="c-api">er.r</span> <span class="c-user">hits</span> <span class="c-num">16</span> <span class="c-user">rot</span> <span class="c-var">i</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre><details class="out"><summary><b>Output</b> · what the simulator prints for <code>$ otype.py run two_euclids -v</code></summary><pre><code>two_euclids  seed 1 (--seed)  pattern A01 len 16 (default)  track 1
+T1  1   5   9   13
+    X...X..X..X..X..
+T2  1   5   9   13
+    ....X.....X....X
+      X trig  ! one-shot  o trigless trig  - trigless lock  l locks only  . none
+part:  tempo 120
+cost: 354/450   random draws: rand 0  toss 0  prob 0  drunk 0  file 0</code></pre></details></figure>
+
+<p>A call is the function's name, a <code><span class="c-op">|</span></code>, then its values. The bar is required whenever your function
+takes arguments, and never written after one of the Octatrack's operations: at a glance, you see what is yours.
+Your names use letters, digits and <code>_</code>, never a dot; dotted names belong to the machine.</p>
+
+<p>Inside the brick, <code><span class="c-user">track</span></code>, <code><span class="c-user">hits</span></code> and <code><span class="c-user">rot</span></code> are read like variables but cannot
+be changed. A function takes up to four arguments. They are usually numbers, but can also be a text, a list or a
+trig condition: OType works out which from the way the brick uses them, and checks every call.</p>
+
+<h2>Giving a value back: <code><span class="c-kw">ret</span></code></h2>
+
+<p><code><span class="c-kw">ret</span> <span class="c-user">value</span></code> ends the function and gives the value back to the caller, so the call can stand inside
+an expression like any operation:</p>
+
+<figure class="listing"><figcaption><b>Listing 6-2</b> · A function that computes a step</figcaption><pre><code><span class="c-kw">def</span> <span class="c-user">backbeat</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LEARN&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;BACKBEAT&quot;</span>
+  <span class="c-api">tr.clr</span>
+  <span class="c-api">tr.add</span> <span class="c-user">beat_step</span> <span class="c-op">|</span> <span class="c-num">2</span>
+  <span class="c-api">tr.add</span> <span class="c-user">beat_step</span> <span class="c-op">|</span> <span class="c-num">4</span>
+
+<span class="c-kw">def</span> <span class="c-user">beat_step</span> <span class="c-op">|</span> <span class="c-user">beat</span>
+  <span class="c-kw">ret</span> <span class="c-api">sub</span> <span class="c-api">mul</span> <span class="c-user">beat</span> <span class="c-num">4</span> <span class="c-num">3</span>       <span class="c-com"># beat 1..4 gives step 1, 5, 9 or 13</span></code></pre><details class="out"><summary><b>Output</b> · what the simulator prints for <code>$ otype.py run backbeat</code></summary><pre><code>backbeat  seed 1 (--seed)  pattern A01 len 16 (default)  track 1
+T1  1   5   9   13
+    ....X.......X...
+      X trig  ! one-shot  o trigless trig  - trigless lock  l locks only  . none
+part:  tempo 120
+cost: 140/140   random draws: rand 0  toss 0  prob 0  drunk 0  file 0</code></pre></details></figure>
+
+<p>A function that ends without <code><span class="c-kw">ret</span></code> is worth 0. Called as a statement, its value is simply
+dropped.</p>
+
+<h2>What a function sees</h2>
+
+<p>Each call has its own <code><span class="c-var">a</span> <span class="c-var">b</span> <span class="c-var">c</span> <span class="c-var">d</span></code>, all at 0. A function you call cannot touch yours:</p>
+
+<figure class="listing"><figcaption><b>Listing 6-3</b> · Two a&#x27;s that never meet</figcaption><pre><code><span class="c-kw">def</span> <span class="c-user">keep_a</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LEARN&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;KEEP A&quot;</span>
+  <span class="c-var">a</span> <span class="c-num">5</span>
+  <span class="c-user">set_a</span>
+  <span class="c-api">msg</span> <span class="c-str">&quot;A IS STILL&quot;</span> <span class="c-var">a</span>
+
+<span class="c-kw">def</span> <span class="c-user">set_a</span>
+  <span class="c-var">a</span> <span class="c-num">9</span></code></pre><details class="out"><summary><b>Output</b> · what the simulator prints for <code>$ otype.py run keep_a</code></summary><pre><code>keep_a  seed 1 (--seed)  pattern A01 len 16 (default)  track 1
+(no track holds anything)
+      X trig  ! one-shot  o trigless trig  - trigless lock  l locks only  . none
+part:  tempo 120
+msg:   &quot;A IS STILL 5&quot;
+end box: &quot;A IS STILL 5&quot; (the last msg, instead of DONE)
+cost: 4/4   random draws: rand 0  toss 0  prob 0  drunk 0  file 0</code></pre></details></figure>
+
+<p>The other things a function can see are shared: the global <code><span class="c-var">x</span> <span class="c-var">y</span> <span class="c-var">z</span> <span class="c-var">t</span></code>, every function, and every
+<code><span class="c-kw">const</span></code>. As the previous study showed, the called function also starts with a copy of the caller's
+tracks and steps. The <a href="scope.html">appendix</a> sums it all up in one table.</p>
+
+<h2>Constants</h2>
+
+<p><code><span class="c-kw">const</span> <span class="c-user">name</span> <span class="c-user">value</span></code>, at the start of a line, names a value that never changes: a number, a text, a
+list or a trig condition. Constants and functions are global: every file in <code>/<span class="c-user">SCRIPTS</span>/</code> sees them,
+so a file can be a library that the others use.</p>
+
+<figure class="listing"><figcaption><b>Listing 6-4</b> · Names instead of numbers</figcaption><pre><code><span class="c-kw">const</span> <span class="c-user">kick</span> <span class="c-num">1</span>
+<span class="c-kw">const</span> <span class="c-user">snare</span> <span class="c-num">2</span>
+
+<span class="c-kw">def</span> <span class="c-user">named_tracks</span>
+  <span class="c-kw">menu</span> <span class="c-str">&quot;LEARN&quot;</span> <span class="c-op">&gt;&gt;</span> <span class="c-str">&quot;NAMED&quot;</span>
+  <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-user">kick</span> <span class="c-num">4</span> <span class="c-num">0</span>
+  <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-user">snare</span> <span class="c-num">2</span> <span class="c-num">4</span>
+
+<span class="c-kw">def</span> <span class="c-user">euclid_on</span> <span class="c-op">|</span> <span class="c-user">track</span> <span class="c-user">hits</span> <span class="c-user">rot</span>
+  <span class="c-kw">trk</span> <span class="c-user">track</span>:
+    <span class="c-api">tr.clr</span>
+    <span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">if</span> <span class="c-api">er.r</span> <span class="c-user">hits</span> <span class="c-num">16</span> <span class="c-user">rot</span> <span class="c-var">i</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span></code></pre><details class="out"><summary><b>Output</b> · what the simulator prints for <code>$ otype.py run named_tracks -v</code></summary><pre><code>named_tracks  seed 1 (--seed)  pattern A01 len 16 (default)  track 1
+T1  1   5   9   13
+    X...X...X...X...
+T2  1   5   9   13
+    ....X.......X...
+      X trig  ! one-shot  o trigless trig  - trigless lock  l locks only  . none
+part:  tempo 120
+cost: 346/450   random draws: rand 0  toss 0  prob 0  drunk 0  file 0</code></pre></details></figure>
+
+<p>A name can only be used once across all the files: two functions, or a function and a constant, with the same
+name are both refused.</p>
+
+<h2>What functions cannot do</h2>
+
+<ul>
+  <li><b>Call themselves</b>, directly or through others. <code><span class="c-user">ping</span></code> calling <code><span class="c-user">pong</span></code> calling
+    <code><span class="c-user">ping</span></code> is refused with <code><span class="c-user">loop</span> <span class="c-user">ping</span>&gt;<span class="c-user">pong</span>&gt;<span class="c-user">ping</span></code>.</li>
+  <li><b>Nest deeper than eight calls.</b></li>
+</ul>
+
+<p>Both rules, with the fixed loop bounds of <a href="decisions-and-loops.html">decisions and loops</a>, make sure
+a run always ends, and the checker can tell you in advance how much work it does at most.</p>
+
+<div class="recap">
+<h2>What you learned</h2>
+<dl>
+  <dt><code><span class="c-kw">def</span> <span class="c-user">name</span> <span class="c-op">|</span> <span class="c-var">a</span> <span class="c-var">b</span></code></dt><dd>a function with arguments</dd>
+  <dt>brick</dt><dd>a function without <code><span class="c-kw">menu</span></code>, used by the others</dd>
+  <dt><code><span class="c-user">name</span> <span class="c-op">|</span> <span class="c-num">1</span> <span class="c-num">2</span></code></dt><dd>calling your own function</dd>
+  <dt><code><span class="c-kw">ret</span> <span class="c-user">v</span></code></dt><dd>end and give a value back</dd>
+  <dt><code><span class="c-kw">const</span> <span class="c-user">name</span> <span class="c-user">value</span></code></dt><dd>a named value, global to all files</dd>
+  <dt>no recursion, eight calls deep</dt><dd>so every run ends</dd>
+</dl>
+</div>
+
+<div class="try">
+<h2>Try it</h2>
+<ul>
+  <li>Give <code><span class="c-user">euclid_on</span></code> a fourth argument: the number of steps of the rhythm.</li>
+  <li>Write a brick <code><span class="c-user">clamp_vol</span> <span class="c-op">|</span> <span class="c-user">v</span></code> that returns <code><span class="c-user">v</span></code> kept between 40 and 127.</li>
+  <li>Move <code><span class="c-user">euclid_on</span></code> to its own file, <code><span class="c-api">LIB.OTY</span></code>, and check both files together.</li>
+</ul>
+</div>
+
+<nav class="pager" aria-label="Chapters"><a class="prev" href="context.html"><small>previous</small>← Tracks and steps</a><a class="next" href="the-player.html"><small>next</small>Asking the player →</a></nav>
+</article>
+</div>
+<footer>
+  <p>otype — scripting for the octatrack · every listing on this page passes the OType checker, and the outputs are printed by its simulator</p>
+  <p>syntax directly inspired by <a href="https://monome.org/docs/teletype/">monome teletype</a> · not affiliated with, endorsed or supported by elektron or monome</p>
+  <p>elektron and octatrack are trademarks of elektron music machines; monome and teletype belong to monome. the names are used only to say what this works with.</p>
+  <p><a href="../">command reference</a> · <a href="https://github.com/nordseele/otype">otype on github</a> · <a href="https://www.gnu.org/licenses/gpl-3.0.html">gpl-3.0</a> · © nordseele 2026</p>
+</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function current() { return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light'); }
+  function label() { var t = current(); btn.textContent = t === 'dark' ? 'light' : 'dark';
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'); }
+  var saved = null; try { saved = localStorage.getItem('otype-theme'); } catch (e) {}
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  label();
+  if (mq.addEventListener) mq.addEventListener('change', label);
+  btn.addEventListener('click', function () {
+    var t = current() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', t); label();
+    try { localStorage.setItem('otype-theme', t); } catch (e) {}
+  });
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.steps i')), at = 0;
+  var tempo = parseFloat(getComputedStyle(root).getPropertyValue('--tempo')) * 1000 || 500;
+  if (steps.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () { steps[at].classList.remove('on'); at = (at + 1) % steps.length; steps[at].classList.add('on'); }, tempo);
+  }
+})();
+
+if (matchMedia('(max-width: 860px)').matches) document.querySelector('.toc').removeAttribute('open');</script>
+</body>
+</html>
