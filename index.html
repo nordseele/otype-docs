@@ -38,9 +38,12 @@
   <div class="howto">
     <h2><span class="hb">Reading a line</span></h2>
     <p>One command per line, in prefix notation: an operation takes the values that follow it, which may be operations themselves. Modifiers before <code>:</code> repeat or condition the rest of the line; a line ending with <code>:</code> opens an indented block.</p>
-<pre><code><span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">prob</span> <span class="c-num">35</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span>        <span class="c-com"># for i = 1..16, 35 % chance: a trig on step i</span>
-<span class="c-api">pl.set</span> <span class="c-var">i</span> <span class="c-api">amp.vol</span> <span class="c-api">rrand</span> <span class="c-num">70</span> <span class="c-num">127</span>    <span class="c-com"># = pl.set (i) (amp.vol) (rrand 70 127)</span>
-<span class="c-kw">steps</span> <span class="c-api">has.trig</span>:                  <span class="c-com"># block: the steps that have a trig</span>
+<pre><code><span class="c-com"># for i = 1..16, 35 % chance: a trig on step i</span>
+<span class="c-kw">l</span> <span class="c-num">1</span> <span class="c-num">16</span>: <span class="c-kw">prob</span> <span class="c-num">35</span>: <span class="c-api">tr.add</span> <span class="c-var">i</span>
+<span class="c-com"># = pl.set (i) (amp.vol) (rrand 70 127)</span>
+<span class="c-api">pl.set</span> <span class="c-var">i</span> <span class="c-api">amp.vol</span> <span class="c-api">rrand</span> <span class="c-num">70</span> <span class="c-num">127</span>
+<span class="c-com"># a block: the steps that have a trig</span>
+<span class="c-kw">steps</span> <span class="c-api">has.trig</span>:
   <span class="c-kw">each</span>: <span class="c-api">cond.set</span> <span class="c-var">i</span> <span class="c-cond">50%</span></code></pre>
     <p>Dotted names (<code><span class="c-api">tr.add</span></code>) are the OT's API; your own functions use underscores and take their arguments after <code><span class="c-op">|</span></code>. OType ignores case; this reference writes everything in lowercase. Text between quotes keeps its case.</p>
     <p>Read a setting with <code><span class="c-var">x</span> <span class="c-api">tempo</span></code>; write it with <code><span class="c-api">tempo</span> <span class="c-num">137</span></code>. Numbered settings keep their number: <code><span class="c-var">x</span> <span class="c-api">lfo.wave</span> <span class="c-num">1</span></code> / <code><span class="c-api">lfo.wave</span> <span class="c-num">1</span> <span class="c-num">18</span></code>. Renamed operators have no compatibility aliases.</p>
